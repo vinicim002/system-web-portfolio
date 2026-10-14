@@ -26,7 +26,7 @@ export function ContactForm() {
     formState: { errors, isSubmitting },
   } = useForm<ContactInput>({
     resolver: zodResolver(contactSchema),
-    defaultValues: { name: "", email: "", message: "" },
+    defaultValues: { name: "", email: "", message: "", website: "" },
   });
 
   async function onSubmit(values: ContactInput) {
@@ -51,7 +51,7 @@ export function ContactForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} noValidate className="flex flex-col gap-5">
+    <form onSubmit={handleSubmit(onSubmit)} noValidate className="relative flex flex-col gap-5">
       <div className="grid gap-5 sm:grid-cols-2">
         <div className="flex flex-col gap-2">
           <Label htmlFor="name">{t("form.name")}</Label>
@@ -96,6 +96,12 @@ export function ContactForm() {
         {errorFor("message")}
       </div>
 
+      {/* Campo-armadilha contra robôs: fora da tela e fora da navegação */}
+      <div aria-hidden className="absolute -left-[9999px] h-px w-px overflow-hidden">
+        <label htmlFor="website">Website</label>
+        <input id="website" type="text" tabIndex={-1} autoComplete="off" {...register("website")} />
+      </div>
+
       <Button type="submit" size="lg" disabled={isSubmitting} className="h-12 w-full text-sm">
         {isSubmitting ? (
           <>
@@ -128,7 +134,9 @@ export function ContactForm() {
               ? t("form.success")
               : result.status === "not_configured"
                 ? t("form.notConfigured")
-                : t("form.error")}
+                : result.status === "rate_limited"
+                  ? t("form.rateLimited")
+                  : t("form.error")}
           </p>
         ) : null}
       </div>

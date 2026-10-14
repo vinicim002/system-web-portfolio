@@ -35,7 +35,7 @@
     },
     "location": {
       "title": "Location",
-      "place": "Brazil",
+      "place": "Rio de Janeiro, Brazil",
       "localTime": "Local time"
     },
     "badge": {
@@ -175,7 +175,21 @@
     "cta": {
       "title": "Shall we build something together?",
       "button": "Contact me"
-    }
+    },
+    "experience": {
+      "title": "Experience",
+      "subtitle": "Where I built and shipped software.",
+      "current": "Present"
+    },
+    "education": {
+      "title": "Education"
+    },
+    "certifications": {
+      "title": "Certifications",
+      "credential": "View credential"
+    },
+    "placeholder": "Example",
+    "placeholderHint": "Example content, not validated yet"
   },
   "projectsPage": {
     "meta": {
@@ -218,7 +232,8 @@
       "sending": "Sending...",
       "success": "Message sent! I'll reply as soon as possible.",
       "error": "Couldn't send right now. Try again or reach me on LinkedIn.",
-      "notConfigured": "Message sending is still being set up. Meanwhile, reach me on LinkedIn."
+      "notConfigured": "Message sending is still being set up. Meanwhile, reach me on LinkedIn.",
+      "rateLimited": "Too many messages in a short time. Try again in a few minutes."
     },
     "validation": {
       "name": "Enter your name.",

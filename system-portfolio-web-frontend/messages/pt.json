@@ -35,7 +35,7 @@
     },
     "location": {
       "title": "Localização",
-      "place": "Brasil",
+      "place": "Rio de Janeiro, Brasil",
       "localTime": "Horário local"
     },
     "badge": {
@@ -175,7 +175,21 @@
     "cta": {
       "title": "Vamos construir algo juntos?",
       "button": "Fale comigo"
-    }
+    },
+    "experience": {
+      "title": "Experiência",
+      "subtitle": "Onde construí e entreguei software.",
+      "current": "Atual"
+    },
+    "education": {
+      "title": "Formação"
+    },
+    "certifications": {
+      "title": "Certificações",
+      "credential": "Ver credencial"
+    },
+    "placeholder": "Exemplo",
+    "placeholderHint": "Conteúdo de exemplo, ainda não validado"
   },
   "projectsPage": {
     "meta": {
@@ -218,7 +232,8 @@
       "sending": "Enviando...",
       "success": "Mensagem enviada! Respondo assim que possível.",
       "error": "Não foi possível enviar agora. Tente novamente ou fale comigo pelo LinkedIn.",
-      "notConfigured": "O envio de mensagens ainda está sendo configurado. Enquanto isso, fale comigo pelo LinkedIn."
+      "notConfigured": "O envio de mensagens ainda está sendo configurado. Enquanto isso, fale comigo pelo LinkedIn.",
+      "rateLimited": "Muitas mensagens em pouco tempo. Tente de novo em alguns minutos."
     },
     "validation": {
       "name": "Informe seu nome.",

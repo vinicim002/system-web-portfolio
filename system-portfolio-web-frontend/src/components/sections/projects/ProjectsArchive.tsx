@@ -1,9 +1,10 @@
 "use client";
 
-import { ArrowUpRight } from "lucide-react";
+import { motion } from "framer-motion";
+import { ArrowUpRight, Plus } from "lucide-react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { ProjectLinks } from "@/components/sections/shared/ProjectLinks";
 import { siteConfig } from "@/config/site";
 import { Link } from "@/i18n/navigation";
@@ -13,13 +14,16 @@ import type { ProjectCategory, ProjectSummary } from "@/types/project";
 const categories = ["all", "web", "mobile", "automation"] as const;
 type CategoryFilter = (typeof categories)[number];
 
-// Cores de fundo das tiras sem capa, alternando entre os tokens da marca
-const fallbackTones = ["bg-primary", "bg-secondary", "bg-foreground text-background"];
+// Cores das tiras sem capa. A 3ª usa o card escuro em qualquer tema
+// (classe "dark" local) para o texto branco manter contraste.
+const fallbackTones = ["bg-primary", "bg-secondary", "dark bg-card"];
 
 type ProjectsArchiveProps = {
   projects: ProjectSummary[];
   archiveLabel: string;
 };
+
+const pad = (value: number) => String(value).padStart(2, "0");
 
 // Arquivo de projetos em tiras verticais (estilo pastas). No desktop a tira
 // ativa expande ao passar o mouse/focar; no mobile todas ficam abertas.
@@ -28,6 +32,7 @@ export function ProjectsArchive({ projects, archiveLabel }: ProjectsArchiveProps
   const tPage = useTranslations("projectsPage");
   const [filter, setFilter] = useState<CategoryFilter>("all");
   const [activeId, setActiveId] = useState<string | null>(null);
+  const stripsRef = useRef<HTMLDivElement>(null);
 
   const counts = useMemo(() => {
     const result: Record<CategoryFilter, number> = { all: projects.length, web: 0, mobile: 0, automation: 0 };
@@ -39,6 +44,18 @@ export function ProjectsArchive({ projects, archiveLabel }: ProjectsArchiveProps
 
   const visible = filter === "all" ? projects : projects.filter((p) => p.category === filter);
   const currentId = visible.some((p) => p.id === activeId) ? activeId : visible[0]?.id;
+  const currentIndex = Math.max(0, visible.findIndex((p) => p.id === currentId));
+
+  // Setas ← → movem o foco entre as tiras
+  function handleKeyDown(event: React.KeyboardEvent<HTMLDivElement>) {
+    if (event.key !== "ArrowRight" && event.key !== "ArrowLeft") return;
+    const links = [...(stripsRef.current?.querySelectorAll<HTMLAnchorElement>("[data-strip-link]") ?? [])];
+    const index = links.indexOf(document.activeElement as HTMLAnchorElement);
+    if (index === -1) return;
+    event.preventDefault();
+    const next = event.key === "ArrowRight" ? index + 1 : index - 1;
+    links[(next + links.length) % links.length]?.focus();
+  }
 
   return (
     <div className="flex flex-col gap-6">
@@ -66,7 +83,11 @@ export function ProjectsArchive({ projects, archiveLabel }: ProjectsArchiveProps
       {visible.length === 0 ? (
         <p className="text-muted-foreground">{tPage("empty")}</p>
       ) : (
-        <div className="flex flex-col gap-3 md:h-[clamp(480px,68vh,720px)] md:flex-row md:gap-2">
+        <div
+          ref={stripsRef}
+          onKeyDown={handleKeyDown}
+          className="flex flex-col gap-3 md:h-[clamp(460px,calc(100dvh-23rem),740px)] md:flex-row md:gap-2"
+        >
           {/* Lombada do arquivo */}
           <div
             aria-hidden
@@ -75,22 +96,30 @@ export function ProjectsArchive({ projects, archiveLabel }: ProjectsArchiveProps
             <span className="rotate-180 text-2xl font-bold tracking-tight [writing-mode:vertical-rl]">
               {archiveLabel}
             </span>
-            <span className="font-mono text-[10px] leading-relaxed text-white/60 [writing-mode:vertical-rl]">
-              {siteConfig.domain}
+            <span className="flex flex-col items-center gap-3">
+              <span className="font-mono text-xs tabular-nums">
+                {pad(currentIndex + 1)}
+                <span className="block text-white/40">/{pad(visible.length)}</span>
+              </span>
+              <span className="font-mono text-[10px] leading-relaxed text-white/60 [writing-mode:vertical-rl]">
+                {siteConfig.domain}
+              </span>
             </span>
           </div>
 
           {visible.map((project, index) => {
             const isActive = project.id === currentId;
-            const number = String(index + 1).padStart(2, "0");
 
             return (
-              <article
+              <motion.article
                 key={project.id}
+                initial={{ opacity: 0, y: 24 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.08 * index, ease: "easeOut" }}
                 onMouseEnter={() => setActiveId(project.id)}
                 onFocus={() => setActiveId(project.id)}
                 className={cn(
-                  "group relative isolate flex h-[380px] overflow-hidden rounded-2xl text-white md:h-auto md:min-w-20 md:basis-0 md:transition-[flex-grow] md:duration-500 md:ease-out motion-reduce:transition-none",
+                  "group relative isolate flex h-100 overflow-hidden rounded-2xl text-white md:h-auto md:min-w-20 md:basis-0 md:transition-[flex-grow] md:duration-500 md:ease-out motion-reduce:transition-none",
                   isActive ? "md:grow-[6]" : "md:grow",
                   !project.coverUrl && fallbackTones[index % fallbackTones.length],
                 )}
@@ -99,18 +128,26 @@ export function ProjectsArchive({ projects, archiveLabel }: ProjectsArchiveProps
                   <Image src={project.coverUrl} alt="" fill sizes="(min-width: 768px) 60vw, 100vw" className="-z-10 object-cover" />
                 ) : (
                   <>
-                    <span aria-hidden className="bg-dots absolute inset-0 -z-10 opacity-40" />
+                    <span aria-hidden className="bg-dots absolute inset-0 -z-10 opacity-30" />
+                    {/* Arte tipográfica com a stack do projeto */}
                     <span
                       aria-hidden
-                      className="absolute -right-4 -bottom-10 -z-10 text-[16rem] leading-none font-bold tracking-tighter opacity-15"
+                      className="absolute inset-x-6 top-16 bottom-0 -z-10 flex flex-col overflow-hidden text-5xl leading-[0.95] font-bold tracking-tighter whitespace-nowrap text-white/[0.07] select-none [mask-image:linear-gradient(to_bottom,black_30%,transparent_65%)] lg:text-7xl"
                     >
-                      {project.title.charAt(0)}
+                      {project.techStack.map((tech) => (
+                        <span key={tech}>{tech}</span>
+                      ))}
                     </span>
                   </>
                 )}
 
                 {/* Aba da pasta com o número */}
-                <span className="absolute top-4 left-4 font-mono text-xs opacity-80">{number}</span>
+                <span
+                  aria-hidden
+                  className="absolute top-0 right-4 flex h-16 w-8 justify-center rounded-b-xl bg-black/25 pt-2.5 font-mono text-[11px] backdrop-blur-sm [writing-mode:vertical-rl]"
+                >
+                  {pad(index + 1)}
+                </span>
 
                 {/* Título vertical quando a tira está fechada (desktop) */}
                 <span
@@ -126,8 +163,10 @@ export function ProjectsArchive({ projects, archiveLabel }: ProjectsArchiveProps
                 {/* Conteúdo da tira aberta */}
                 <span
                   className={cn(
-                    "mt-auto flex w-full flex-col gap-3 bg-gradient-to-t from-black/70 via-black/40 to-transparent p-6 pt-20 transition-opacity duration-300 md:min-w-[22rem] lg:p-8",
-                    isActive ? "md:opacity-100 md:delay-200" : "md:pointer-events-none md:opacity-0",
+                    "mt-auto flex w-full flex-col gap-3 bg-gradient-to-t from-black/70 via-black/40 to-transparent p-6 pt-20 transition-all duration-500 md:min-w-88 lg:p-8",
+                    isActive
+                      ? "md:translate-y-0 md:opacity-100 md:delay-200"
+                      : "md:pointer-events-none md:translate-y-4 md:opacity-0",
                   )}
                 >
                   <span className="w-fit rounded-full border border-white/30 px-2.5 py-0.5 text-[11px] font-medium">
@@ -143,6 +182,7 @@ export function ProjectsArchive({ projects, archiveLabel }: ProjectsArchiveProps
                   <span className="mt-2 flex flex-wrap items-center gap-x-5 gap-y-3">
                     {/* Link do case com área de clique cobrindo a tira inteira */}
                     <Link
+                      data-strip-link
                       href={{ pathname: "/projetos/[slug]", params: { slug: project.slug } }}
                       className="inline-flex items-center gap-1.5 text-sm font-medium after:absolute after:inset-0 after:rounded-2xl"
                     >
@@ -158,9 +198,23 @@ export function ProjectsArchive({ projects, archiveLabel }: ProjectsArchiveProps
                     />
                   </span>
                 </span>
-              </article>
+              </motion.article>
             );
           })}
+
+          {/* Espaço reservado para os próximos projetos */}
+          {filter === "all" ? (
+            <motion.div
+              aria-hidden
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.08 * visible.length, ease: "easeOut" }}
+              className="flex h-20 shrink-0 items-center justify-center gap-2 rounded-2xl border-2 border-dashed border-border text-sm text-muted-foreground md:h-auto md:w-20 md:flex-col md:justify-between md:py-6"
+            >
+              <Plus className="size-4" />
+              <span className="font-medium md:rotate-180 md:[writing-mode:vertical-rl]">{tPage("soon")}</span>
+            </motion.div>
+          ) : null}
         </div>
       )}
     </div>

@@ -4,6 +4,7 @@ import { hasLocale } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Container } from "@/components/layout/Container";
 import { ProjectsArchive } from "@/components/sections/projects/ProjectsArchive";
+import { CtaBanner } from "@/components/sections/shared/CtaBanner";
 import { routing } from "@/i18n/routing";
 import { getProjects } from "@/lib/api/projects";
 
@@ -24,19 +25,22 @@ export default async function ProjectsPage({ params }: PageProps<"/[locale]/proj
 
   return (
     <main>
-      <Container className="flex flex-col gap-10 pt-6 lg:pt-10">
-        <header className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
-          <div>
-            <p className="font-mono text-xs tracking-widest text-accent-text uppercase">{t("eyebrow")}</p>
-            <h1 className="mt-2 text-6xl tracking-tighter lg:text-8xl">{t("title")}</h1>
-          </div>
-          <div className="max-w-md lg:text-right">
-            <p className="text-muted-foreground">{t("subtitle")}</p>
-            <p className="mt-1 font-mono text-xs text-muted-foreground">{t("count", { count: projects.length })}</p>
-          </div>
+      <Container className="flex flex-col gap-10 pt-6 lg:gap-14 lg:pt-10">
+        {/* Cabeçalho editorial: título gigante com a contagem ao lado */}
+        <header className="grid gap-6 lg:grid-cols-[1fr_auto] lg:items-end">
+          <h1 className="text-7xl leading-[0.85] tracking-tighter sm:text-8xl lg:text-9xl">
+            {t("title")}
+            <sup aria-hidden className="ml-2 align-top font-mono text-base font-medium tracking-normal text-accent-text lg:text-2xl">
+              ({String(projects.length).padStart(2, "0")})
+            </sup>
+            <span className="sr-only"> — {t("count", { count: projects.length })}</span>
+          </h1>
+          <p className="max-w-sm text-muted-foreground lg:pb-3 lg:text-right lg:text-lg">{t("subtitle")}</p>
         </header>
 
         <ProjectsArchive projects={projects} archiveLabel={t("eyebrow")} />
+
+        <CtaBanner title={t("cta.title")} button={t("cta.button")} waves />
       </Container>
     </main>
   );

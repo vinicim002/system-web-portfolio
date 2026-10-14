@@ -187,7 +187,12 @@
     "subtitle": "Product and engineering cases, with the real status of each one.",
     "filterLabel": "Filter by category",
     "empty": "No projects in this category yet.",
-    "count": "{count, plural, =0 {no projects} one {# project} other {# projects}}"
+    "count": "{count, plural, =0 {no projects} one {# project} other {# projects}}",
+    "soon": "More projects coming soon",
+    "cta": {
+      "title": "Have a project in mind?",
+      "button": "Contact me"
+    }
   },
   "contact": {
     "meta": {

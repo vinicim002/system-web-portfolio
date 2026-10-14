@@ -33,15 +33,16 @@ export function GlowCard({
   children,
   ...props
 }: GlowCardProps) {
-  const showGlow = variant !== "waves" && glowClassName !== null;
-  const showStars = variant !== "waves";
+  // Azul segue o bloco "sobre mim.": liso, sem brilho nem estrelas
+  const showGlow = variant === "glow" && glowClassName !== null;
+  const showStars = variant === "glow";
 
   return (
     <div
       className={cn(
         "group relative isolate flex flex-col overflow-hidden rounded-3xl border border-border bg-card p-6 lg:p-8",
         // Azul: conteúdo sempre no estilo escuro para manter o contraste
-        variant === "blue" && "dark border-white/10 bg-primary text-foreground",
+        variant === "blue" && "dark rounded-[2rem] border-0 bg-primary text-foreground",
         className,
       )}
       {...props}
@@ -78,12 +79,12 @@ type GlowCardTextProps = {
   as?: "h3" | "h2";
 };
 
-// Título com leve esmaecimento + descrição, como nos cards da referência
+// Título + descrição dos cards
 export function GlowCardText({ title, description, tag, className, as: Heading = "h3" }: GlowCardTextProps) {
   return (
     <div className={cn("relative flex flex-col gap-2", className)}>
       {tag ? <p className="text-xs font-medium text-accent-text">{tag}</p> : null}
-      <Heading className="bg-gradient-to-r from-foreground from-40% to-foreground/45 bg-clip-text text-2xl tracking-tight text-transparent lg:text-3xl">
+      <Heading className="text-2xl tracking-tight text-foreground lg:text-3xl">
         {title}
       </Heading>
       <p className="max-w-md text-sm leading-relaxed text-muted-foreground">{description}</p>

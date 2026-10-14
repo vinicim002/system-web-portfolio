@@ -19,8 +19,8 @@ supabase/.temp/
 .aider*
 AGENTS.md
 
-# Configs locais do Claude (pessoais)
-.claude/settings.local.json
+# Regras, contexto e memória da IA (apenas local)
+.claude/
 
 # Dependências
 node_modules/

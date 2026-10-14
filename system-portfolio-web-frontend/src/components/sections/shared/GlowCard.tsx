@@ -1,3 +1,4 @@
+import { CardWaves } from "@/components/effects/CardWaves";
 import { cn } from "@/lib/utils";
 
 // Posições fixas das "estrelas" (determinísticas para não variar entre servidor e cliente)
@@ -12,23 +13,42 @@ const STARS = [
   { top: "86%", left: "64%" },
 ];
 
+// glow: brilho + estrelas | waves: efeito de ondas | blue: azul da marca (#010066)
+export type GlowCardVariant = "glow" | "waves" | "blue";
+
+// Fundo usado por padrão nos cards do Sobre
+export const GLOW_CARD_VARIANT: GlowCardVariant = "blue";
+
 type GlowCardProps = React.ComponentProps<"div"> & {
   // Classes do brilho de fundo (posição/tamanho); null desliga
   glowClassName?: string | null;
+  variant?: GlowCardVariant;
 };
 
 // Card escuro com brilho roxo e estrelas, base das seções do Sobre
-export function GlowCard({ className, glowClassName, children, ...props }: GlowCardProps) {
+export function GlowCard({
+  className,
+  glowClassName,
+  variant = GLOW_CARD_VARIANT,
+  children,
+  ...props
+}: GlowCardProps) {
+  const showGlow = variant !== "waves" && glowClassName !== null;
+  const showStars = variant !== "waves";
+
   return (
     <div
       className={cn(
         "group relative isolate flex flex-col overflow-hidden rounded-3xl border border-border bg-card p-6 lg:p-8",
+        // Azul: conteúdo sempre no estilo escuro para manter o contraste
+        variant === "blue" && "dark border-white/10 bg-primary text-foreground",
         className,
       )}
       {...props}
     >
+      {variant === "waves" ? <CardWaves lazy /> : null}
       <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
-        {glowClassName !== null ? (
+        {showGlow ? (
           <div
             className={cn(
               "absolute rounded-full bg-secondary/20 blur-3xl transition-opacity duration-500 group-hover:opacity-100 dark:bg-secondary/25",
@@ -37,7 +57,7 @@ export function GlowCard({ className, glowClassName, children, ...props }: GlowC
             )}
           />
         ) : null}
-        {STARS.map((star, index) => (
+        {showStars && STARS.map((star, index) => (
           <span
             key={index}
             className="absolute size-px rounded-full bg-foreground/30 dark:bg-white/50"

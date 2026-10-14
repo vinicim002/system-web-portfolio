@@ -70,7 +70,12 @@ export async function ProjectCase({ params }: ProjectCaseProps) {
         <h2 id="gallery-title" className="text-xs font-medium tracking-widest text-muted-foreground uppercase">
           {t("gallery")}
         </h2>
-        <ProjectGallery images={images} title={project.title} slug={project.slug} />
+        <ProjectGallery
+          images={images}
+          title={project.title}
+          slug={project.slug}
+          device={project.category === "mobile" ? "phone" : "browser"}
+        />
       </section>
 
       <div className="grid gap-12 lg:grid-cols-[1fr_22rem] lg:gap-20">
@@ -101,6 +106,7 @@ export async function ProjectCase({ params }: ProjectCaseProps) {
               ) : null}
             </dl>
 
+            {project.techStack.length > 0 ? (
             <div>
               <h3 className="mb-3 text-xs text-muted-foreground">{t("stack")}</h3>
               <ul className="flex flex-wrap gap-2">
@@ -111,6 +117,7 @@ export async function ProjectCase({ params }: ProjectCaseProps) {
                 ))}
               </ul>
             </div>
+            ) : null}
 
             <div>
               <h3 className="mb-3 text-xs text-muted-foreground">{t("linksLabel")}</h3>

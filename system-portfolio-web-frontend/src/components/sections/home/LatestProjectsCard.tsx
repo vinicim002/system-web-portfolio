@@ -30,7 +30,8 @@ function ProjectThumb({ project }: { project: ProjectSummary }) {
 export async function LatestProjectsCard({ locale, className }: LatestProjectsCardProps) {
   const t = await getTranslations("home.projects");
   const tProject = await getTranslations("project");
-  const projects = await getLatestProjects(locale);
+  // Três itens cabem no card; o resto fica em "Ver todos"
+  const projects = await getLatestProjects(locale, 3);
 
   return (
     <BentoCard waves className={cn("flex flex-col", className)}>
@@ -47,7 +48,8 @@ export async function LatestProjectsCard({ locale, className }: LatestProjectsCa
       {projects.length === 0 ? (
         <p className="text-sm text-muted-foreground">{t("empty")}</p>
       ) : (
-        <ul className="flex flex-col gap-2">
+        // Rola dentro do card se a tela for baixa, em vez de cortar o conteúdo
+        <ul className="-mx-2 flex min-h-0 flex-1 flex-col gap-2 overflow-y-auto px-2 pb-6 [mask-image:linear-gradient(to_bottom,black_calc(100%-2.5rem),transparent)] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           {projects.map((project) => (
             <li
               key={project.id}
@@ -72,9 +74,11 @@ export async function LatestProjectsCard({ locale, className }: LatestProjectsCa
                     {project.summary}
                   </p>
                 ) : null}
-                <p className="truncate font-mono text-[10px] text-accent-text">
-                  {project.techStack.slice(0, 4).join(" · ")}
-                </p>
+                {project.techStack.length > 0 ? (
+                  <p className="truncate font-mono text-[10px] text-accent-text">
+                    {project.techStack.slice(0, 4).join(" · ")}
+                  </p>
+                ) : null}
 
                 {/* Acima do link estendido para continuarem clicáveis */}
                 <ProjectLinks

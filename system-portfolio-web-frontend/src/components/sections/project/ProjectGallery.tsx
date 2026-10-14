@@ -12,6 +12,8 @@ type ProjectGalleryProps = {
   images: string[];
   title: string;
   slug: string;
+  // browser: capturas de site | phone: telas de app mobile
+  device?: "browser" | "phone";
 };
 
 // Moldura de janela de navegador em volta de cada captura
@@ -41,7 +43,7 @@ function BrowserFrame({
 
 // Galeria do case: primeira imagem em destaque + grade; clique abre ampliada.
 // Sem imagens, mostra molduras vazias indicando onde as capturas vão entrar.
-export function ProjectGallery({ images, title, slug }: ProjectGalleryProps) {
+export function ProjectGallery({ images, title, slug, device = "browser" }: ProjectGalleryProps) {
   const t = useTranslations("project");
   const dialogRef = useRef<HTMLDialogElement>(null);
   const [current, setCurrent] = useState<number | null>(null);
@@ -60,17 +62,57 @@ export function ProjectGallery({ images, title, slug }: ProjectGalleryProps) {
     setCurrent((index) => (index === null ? null : (index + direction + images.length) % images.length));
   }
 
+  const thumbnails =
+    device === "phone" ? (
+      // Telas de celular lado a lado, em moldura de aparelho
+      <div className="grid grid-cols-2 gap-4 sm:gap-6 md:grid-cols-4">
+        {Array.from({ length: hasImages ? images.length : 4 }, (_, index) => (
+          <div
+            key={index}
+            className="rounded-[2.25rem] border border-border bg-card p-2 shadow-xl shadow-primary/10 dark:shadow-black/40"
+          >
+            <div className="relative aspect-[9/19] overflow-hidden rounded-[1.75rem] bg-background">
+              {hasImages ? (
+                <button
+                  type="button"
+                  onClick={() => setCurrent(index)}
+                  aria-label={t("galleryOpen", { number: index + 1 })}
+                  className="group absolute inset-0"
+                >
+                  <Image
+                    src={images[index]}
+                    alt={t("imageAlt", { number: index + 1, title })}
+                    fill
+                    sizes="(min-width: 768px) 25vw, 50vw"
+                    className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.02]"
+                  />
+                </button>
+              ) : (
+                <div className="bg-dots flex size-full flex-col items-center justify-center gap-2 text-muted-foreground">
+                  <ImageIcon className="size-6 opacity-60" aria-hidden />
+                  <span className="px-2 text-center text-xs">{t("gallerySoon")}</span>
+                </div>
+              )}
+              <span aria-hidden className="absolute top-2 left-1/2 h-1.5 w-12 -translate-x-1/2 rounded-full bg-foreground/20" />
+            </div>
+          </div>
+        ))}
+      </div>
+    ) : null;
+
   return (
     <>
-      <div className="grid gap-4 md:grid-cols-3 md:grid-rows-2">
+      {thumbnails ?? <div className="grid gap-4 md:grid-cols-3">
         {Array.from({ length: slots }, (_, index) => {
           const featured = index === 0;
+          // Destaque largo quando as demais fecham fileiras de 3 (ex.: 4 ou 7 imagens)
+          const wideFeatured = featured && slots > 1 && (slots - 1) % 3 === 0;
           const frameLabel = `${slug}.app${index === 0 ? "" : `/${index + 1}`}`;
           return (
             <BrowserFrame
               key={index}
               label={frameLabel}
-              className={cn(featured && "md:col-span-2 md:row-span-2")}
+              className={cn(featured && (wideFeatured ? "md:col-span-3" : "md:col-span-2 md:row-span-2"))}
             >
               {hasImages ? (
                 <button
@@ -79,14 +121,14 @@ export function ProjectGallery({ images, title, slug }: ProjectGalleryProps) {
                   aria-label={t("galleryOpen", { number: index + 1 })}
                   className={cn(
                     "group relative block w-full overflow-hidden",
-                    featured ? "aspect-video md:aspect-auto md:h-full md:min-h-80" : "aspect-video",
+                    featured && !wideFeatured ? "aspect-video md:aspect-auto md:h-full md:min-h-80" : wideFeatured ? "aspect-video md:aspect-[21/9]" : "aspect-video",
                   )}
                 >
                   <Image
                     src={images[index]}
                     alt={t("imageAlt", { number: index + 1, title })}
                     fill
-                    sizes={featured ? "(min-width: 768px) 66vw, 100vw" : "(min-width: 768px) 33vw, 100vw"}
+                    sizes={wideFeatured ? "100vw" : featured ? "(min-width: 768px) 66vw, 100vw" : "(min-width: 768px) 33vw, 100vw"}
                     className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.02]"
                   />
                 </button>
@@ -94,7 +136,7 @@ export function ProjectGallery({ images, title, slug }: ProjectGalleryProps) {
                 <div
                   className={cn(
                     "bg-dots flex w-full flex-col items-center justify-center gap-2 text-muted-foreground",
-                    featured ? "aspect-video md:aspect-auto md:h-full md:min-h-80" : "aspect-video",
+                    featured && !wideFeatured ? "aspect-video md:aspect-auto md:h-full md:min-h-80" : wideFeatured ? "aspect-video md:aspect-[21/9]" : "aspect-video",
                   )}
                 >
                   <ImageIcon className="size-6 opacity-60" aria-hidden />
@@ -104,7 +146,7 @@ export function ProjectGallery({ images, title, slug }: ProjectGalleryProps) {
             </BrowserFrame>
           );
         })}
-      </div>
+      </div>}
 
       {hasImages ? (
         <dialog
@@ -137,7 +179,7 @@ export function ProjectGallery({ images, title, slug }: ProjectGalleryProps) {
                 </button>
               </div>
 
-              <div className="relative aspect-video w-full overflow-hidden rounded-2xl bg-black">
+              <div className={cn("relative w-full overflow-hidden rounded-2xl bg-black", device === "phone" ? "h-[calc(100dvh-9rem)]" : "aspect-video")}>
                 <Image
                   src={images[current]}
                   alt={t("imageAlt", { number: current + 1, title })}

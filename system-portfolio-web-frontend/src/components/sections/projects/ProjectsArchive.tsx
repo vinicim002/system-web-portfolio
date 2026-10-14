@@ -125,7 +125,26 @@ export function ProjectsArchive({ projects, archiveLabel }: ProjectsArchiveProps
                 )}
               >
                 {project.coverUrl ? (
-                  <Image src={project.coverUrl} alt="" fill sizes="(min-width: 768px) 60vw, 100vw" className="-z-10 object-cover" />
+                  <>
+                    <Image
+                      src={project.coverUrl}
+                      alt=""
+                      fill
+                      sizes="(min-width: 768px) 60vw, 100vw"
+                      className={cn(
+                        "-z-10 object-cover object-top transition-[filter] duration-500",
+                        !isActive && "md:grayscale",
+                      )}
+                    />
+                    {/* Escurece a captura para o texto branco ficar legível */}
+                    <span
+                      aria-hidden
+                      className={cn(
+                        "absolute inset-0 -z-10 transition-colors duration-500",
+                        isActive ? "bg-linear-to-t from-black/90 via-black/45 to-black/10" : "bg-primary/75",
+                      )}
+                    />
+                  </>
                 ) : (
                   <>
                     <span aria-hidden className="bg-dots absolute inset-0 -z-10 opacity-30" />
@@ -178,7 +197,9 @@ export function ProjectsArchive({ projects, archiveLabel }: ProjectsArchiveProps
                       {project.summary}
                     </span>
                   ) : null}
-                  <span className="font-mono text-xs text-white/70">{project.techStack.join(" · ")}</span>
+                  {project.techStack.length > 0 ? (
+                    <span className="font-mono text-xs text-white/70">{project.techStack.join(" · ")}</span>
+                  ) : null}
                   <span className="mt-2 flex flex-wrap items-center gap-x-5 gap-y-3">
                     {/* Link do case com área de clique cobrindo a tira inteira */}
                     <Link

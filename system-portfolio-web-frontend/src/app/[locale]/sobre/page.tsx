@@ -30,7 +30,7 @@ export default async function AboutPage({ params }: PageProps<"/[locale]/sobre">
         <StackGrid />
         <ProcessSteps />
         <StudyingList />
-        <CtaBanner title={t("title")} button={t("button")} />
+        <CtaBanner title={t("title")} button={t("button")} waves />
       </Container>
     </main>
   );

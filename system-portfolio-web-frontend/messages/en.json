@@ -8,10 +8,16 @@
     "about": "About",
     "projects": "Projects",
     "contact": "Contact",
-    "main": "Main navigation"
+    "main": "Main navigation",
+    "pages": "Pages",
+    "social": "Social",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "cta": "Contact me"
   },
   "theme": {
-    "toggle": "Toggle light/dark theme"
+    "toggle": "Toggle light/dark theme",
+    "label": "Theme"
   },
   "language": {
     "label": "Language",
@@ -45,7 +51,9 @@
       "x": "X",
       "youtube": "YouTube",
       "tiktok": "TikTok",
-      "soon": "coming soon"
+      "soon": "coming soon",
+      "email": "Email",
+      "contact": "Contact me"
     },
     "projects": {
       "title": "Latest projects",
@@ -68,12 +76,25 @@
     },
     "back": "Back to projects",
     "stack": "Stack",
-    "repo": "Repository",
-    "demo": "View demo",
     "openCase": "View case",
     "proposalNote": "This case describes a technical proposal: the content shows what was designed and planned, not a completed delivery.",
     "next": "Want to know more about this project?",
-    "contact": "Contact me"
+    "contact": "Contact me",
+    "deploy": "Deploy",
+    "github": "GitHub",
+    "soon": "Link coming soon",
+    "gallery": "App screenshots",
+    "gallerySoon": "Screenshot coming soon",
+    "galleryOpen": "Enlarge image {number}",
+    "galleryClose": "Close",
+    "galleryPrev": "Previous image",
+    "galleryNext": "Next image",
+    "galleryCount": "{current} of {total}",
+    "details": "Project details",
+    "statusLabel": "Status",
+    "categoryLabel": "Category",
+    "linksLabel": "Links",
+    "imageAlt": "Screenshot {number} of {title}"
   },
   "about": {
     "meta": {
@@ -107,7 +128,8 @@
           "title": "Infra",
           "tag": "Deploy and hosting"
         }
-      }
+      },
+      "frontendCta": "New component"
     },
     "process": {
       "title": "How I work",
@@ -133,7 +155,9 @@
           "text": "Ship and monitor behavior in production."
         }
       },
-      "ai": "I use AI as a teacher, reviewer and copilot: to speed up repetitive tasks and support reviews, while still understanding, validating and deciding."
+      "ai": "I use AI as a teacher, reviewer and copilot: to speed up repetitive tasks and support reviews, while still understanding, validating and deciding.",
+      "aiLabel": "Copilot",
+      "aiTitle": "AI as support"
     },
     "studying": {
       "title": "Currently studying",
@@ -170,7 +194,7 @@
       "title": "Contact",
       "description": "Talk to Vinicius Vila Nova about projects and opportunities."
     },
-    "title": "Get in touch",
+    "title": "Get in <accent>touch</accent>",
     "subtitle": "Want to talk about a project or an opportunity? Send me a message.",
     "linkedin": "LinkedIn",
     "github": "GitHub",
@@ -195,7 +219,10 @@
       "name": "Enter your name.",
       "email": "Enter a valid email.",
       "message": "The message must be at least 10 characters long."
-    }
+    },
+    "eyebrow": "Contact",
+    "formTitle": "Send a message",
+    "formSubtitle": "Fill in the fields below and I'll get back to you by email."
   },
   "footer": {
     "tagline": "Software Engineer building real applications with React/TypeScript and Java/Spring.",

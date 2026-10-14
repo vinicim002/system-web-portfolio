@@ -1,7 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { CheckCircle2, Info, Loader2 } from "lucide-react";
+import { CheckCircle2, Info, Loader2, Send } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -13,7 +13,7 @@ import { sendContactMessage, type ContactResult } from "@/lib/api/contact";
 import { cn } from "@/lib/utils";
 import { contactSchema, type ContactInput } from "@/lib/validations/contact";
 
-const fieldClass = "h-11 rounded-xl border-transparent bg-card px-4 dark:bg-card";
+const fieldClass = "h-12 rounded-xl border-border bg-background/60 px-4 dark:bg-background/60";
 
 export function ContactForm() {
   const t = useTranslations("contact");
@@ -103,7 +103,10 @@ export function ContactForm() {
             {t("form.sending")}
           </>
         ) : (
-          t("form.submit")
+          <>
+            {t("form.submit")}
+            <Send aria-hidden />
+          </>
         )}
       </Button>
 

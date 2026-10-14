@@ -8,10 +8,16 @@
     "about": "Sobre",
     "projects": "Projetos",
     "contact": "Contato",
-    "main": "Navegação principal"
+    "main": "Navegação principal",
+    "pages": "Páginas",
+    "social": "Redes",
+    "openMenu": "Abrir menu",
+    "closeMenu": "Fechar menu",
+    "cta": "Fale comigo"
   },
   "theme": {
-    "toggle": "Alternar tema claro/escuro"
+    "toggle": "Alternar tema claro/escuro",
+    "label": "Tema"
   },
   "language": {
     "label": "Idioma",
@@ -45,7 +51,9 @@
       "x": "X",
       "youtube": "YouTube",
       "tiktok": "TikTok",
-      "soon": "em breve"
+      "soon": "em breve",
+      "email": "E-mail",
+      "contact": "Fale comigo"
     },
     "projects": {
       "title": "Últimos projetos",
@@ -68,12 +76,25 @@
     },
     "back": "Voltar para projetos",
     "stack": "Stack",
-    "repo": "Repositório",
-    "demo": "Ver demo",
     "openCase": "Ver case",
     "proposalNote": "Este case descreve uma proposta técnica: o conteúdo mostra o que foi projetado e planejado, não uma entrega concluída.",
     "next": "Quer saber mais sobre este projeto?",
-    "contact": "Fale comigo"
+    "contact": "Fale comigo",
+    "deploy": "Deploy",
+    "github": "GitHub",
+    "soon": "Link em breve",
+    "gallery": "Imagens da aplicação",
+    "gallerySoon": "Captura de tela em breve",
+    "galleryOpen": "Ampliar imagem {number}",
+    "galleryClose": "Fechar",
+    "galleryPrev": "Imagem anterior",
+    "galleryNext": "Próxima imagem",
+    "galleryCount": "{current} de {total}",
+    "details": "Ficha técnica",
+    "statusLabel": "Status",
+    "categoryLabel": "Categoria",
+    "linksLabel": "Links",
+    "imageAlt": "Captura de tela {number} de {title}"
   },
   "about": {
     "meta": {
@@ -107,7 +128,8 @@
           "title": "Infra",
           "tag": "Deploy e publicação"
         }
-      }
+      },
+      "frontendCta": "Novo componente"
     },
     "process": {
       "title": "Como eu trabalho",
@@ -133,7 +155,9 @@
           "text": "Publicar e acompanhar o comportamento em produção."
         }
       },
-      "ai": "Uso IA como professor, reviewer e copilot: para acelerar tarefas repetitivas e apoiar revisões, sem abrir mão de entender, validar e decidir."
+      "ai": "Uso IA como professor, reviewer e copilot: para acelerar tarefas repetitivas e apoiar revisões, sem abrir mão de entender, validar e decidir.",
+      "aiLabel": "Copilot",
+      "aiTitle": "IA como apoio"
     },
     "studying": {
       "title": "Estudando agora",
@@ -170,7 +194,7 @@
       "title": "Contato",
       "description": "Fale com o Vinicius Vila Nova sobre projetos e oportunidades."
     },
-    "title": "Vamos conversar",
+    "title": "Vamos <accent>conversar</accent>",
     "subtitle": "Quer falar sobre um projeto ou uma oportunidade? Me mande uma mensagem.",
     "linkedin": "LinkedIn",
     "github": "GitHub",
@@ -195,7 +219,10 @@
       "name": "Informe seu nome.",
       "email": "Informe um e-mail válido.",
       "message": "A mensagem precisa ter pelo menos 10 caracteres."
-    }
+    },
+    "eyebrow": "Contato",
+    "formTitle": "Envie uma mensagem",
+    "formSubtitle": "Preencha os campos abaixo e eu retorno pelo seu e-mail."
   },
   "footer": {
     "tagline": "Software Engineer construindo aplicações reais com React/TypeScript e Java/Spring.",

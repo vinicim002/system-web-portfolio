@@ -29,7 +29,7 @@ export function LanguageSwitch() {
     <div
       role="group"
       aria-label={t("label")}
-      className="flex h-8 items-center rounded-lg border border-border p-0.5 text-xs font-medium"
+      className="flex h-11 items-center gap-1 rounded-xl bg-background p-1 text-xs font-medium"
     >
       {routing.locales.map((item) => (
         <button
@@ -41,9 +41,9 @@ export function LanguageSwitch() {
           disabled={isPending}
           onClick={() => changeLocale(item)}
           className={cn(
-            "h-full rounded-md px-2 uppercase transition-colors",
+            "h-full min-w-10 rounded-lg px-2.5 lowercase transition-colors",
             item === locale
-              ? "bg-muted text-foreground"
+              ? "bg-foreground text-background"
               : "text-muted-foreground hover:text-foreground",
           )}
         >

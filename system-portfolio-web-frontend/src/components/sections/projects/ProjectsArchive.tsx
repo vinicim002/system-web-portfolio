@@ -4,6 +4,7 @@ import { ArrowUpRight } from "lucide-react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { useMemo, useState } from "react";
+import { ProjectLinks } from "@/components/sections/shared/ProjectLinks";
 import { siteConfig } from "@/config/site";
 import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
@@ -84,9 +85,8 @@ export function ProjectsArchive({ projects, archiveLabel }: ProjectsArchiveProps
             const number = String(index + 1).padStart(2, "0");
 
             return (
-              <Link
+              <article
                 key={project.id}
-                href={{ pathname: "/projetos/[slug]", params: { slug: project.slug } }}
                 onMouseEnter={() => setActiveId(project.id)}
                 onFocus={() => setActiveId(project.id)}
                 className={cn(
@@ -140,12 +140,25 @@ export function ProjectsArchive({ projects, archiveLabel }: ProjectsArchiveProps
                     </span>
                   ) : null}
                   <span className="font-mono text-xs text-white/70">{project.techStack.join(" · ")}</span>
-                  <span className="mt-2 inline-flex items-center gap-1.5 text-sm font-medium">
-                    {t("openCase")}
-                    <ArrowUpRight className="size-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden />
+                  <span className="mt-2 flex flex-wrap items-center gap-x-5 gap-y-3">
+                    {/* Link do case com área de clique cobrindo a tira inteira */}
+                    <Link
+                      href={{ pathname: "/projetos/[slug]", params: { slug: project.slug } }}
+                      className="inline-flex items-center gap-1.5 text-sm font-medium after:absolute after:inset-0 after:rounded-2xl"
+                    >
+                      {t("openCase")}
+                      <ArrowUpRight className="size-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden />
+                    </Link>
+                    <ProjectLinks
+                      tone="inverted"
+                      className="relative z-10"
+                      demoUrl={project.demoUrl}
+                      repoUrl={project.repoUrl}
+                      labels={{ deploy: t("deploy"), github: t("github"), soon: t("soon") }}
+                    />
                   </span>
                 </span>
-              </Link>
+              </article>
             );
           })}
         </div>

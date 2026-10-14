@@ -37,6 +37,8 @@ export type ProjectSummary = {
   status: ProjectStatus;
   techStack: string[];
   coverUrl: string | null;
+  repoUrl: string | null;
+  demoUrl: string | null;
 };
 
 
@@ -44,6 +46,4 @@ export type ProjectSummary = {
 export type ProjectDetail = ProjectSummary & {
   content: string | null;
   galleryUrls: string[];
-  repoUrl: string | null;
-  demoUrl: string | null;
 };

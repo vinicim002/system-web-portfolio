@@ -136,6 +136,8 @@ function toSummary(row: ProjectRow, locale: Locale): ProjectSummary {
     status: row.status,
     techStack: row.tech_stack,
     coverUrl: row.cover_url,
+    repoUrl: row.repo_url,
+    demoUrl: row.demo_url,
   };
 }
 
@@ -144,8 +146,6 @@ function toDetail(row: ProjectRow, locale: Locale): ProjectDetail {
     ...toSummary(row, locale),
     content: locale === "en" ? row.content_en : row.content_pt,
     galleryUrls: row.gallery_urls,
-    repoUrl: row.repo_url,
-    demoUrl: row.demo_url,
   };
 }
 

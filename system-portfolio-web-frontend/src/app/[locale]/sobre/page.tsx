@@ -4,6 +4,8 @@ import { hasLocale } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Container } from "@/components/layout/Container";
 import { AboutHero } from "@/components/sections/about/AboutHero";
+import { EducationCertifications } from "@/components/sections/about/EducationCertifications";
+import { ExperienceTimeline } from "@/components/sections/about/ExperienceTimeline";
 import { ProcessSteps } from "@/components/sections/about/ProcessSteps";
 import { StackGrid } from "@/components/sections/about/StackGrid";
 import { StudyingList } from "@/components/sections/about/StudyingList";
@@ -27,8 +29,10 @@ export default async function AboutPage({ params }: PageProps<"/[locale]/sobre">
     <main>
       <Container className="flex flex-col gap-20 pt-2 lg:gap-28">
         <AboutHero />
+        <ExperienceTimeline />
         <StackGrid />
         <ProcessSteps />
+        <EducationCertifications />
         <StudyingList />
         <CtaBanner title={t("title")} button={t("button")} waves />
       </Container>

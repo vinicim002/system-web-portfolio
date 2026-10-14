@@ -9,8 +9,7 @@ export async function LocationCard({ className }: { className?: string }) {
   const t = await getTranslations("home.location");
 
   return (
-    <BentoCard className={cn("min-h-36", className)} aria-label={t("title")}>
-      <div aria-hidden className="bg-dots absolute inset-0 [mask-image:radial-gradient(circle_at_75%_50%,black,transparent_70%)]" />
+    <BentoCard waves className={cn("min-h-36", className)} aria-label={t("title")}>
       <span
         aria-hidden
         className="absolute top-1/2 right-[22%] flex size-3 -translate-y-1/2"

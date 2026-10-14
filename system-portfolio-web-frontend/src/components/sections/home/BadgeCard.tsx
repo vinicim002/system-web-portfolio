@@ -9,8 +9,7 @@ export async function BadgeCard({ className }: { className?: string }) {
   const t = await getTranslations("home.badge");
 
   return (
-    <BentoCard className={cn("flex min-h-[600px] flex-col items-center pt-0", className)}>
-      <div aria-hidden className="bg-dots absolute inset-0 opacity-60" />
+    <BentoCard waves className={cn("flex min-h-[600px] flex-col items-center pt-0", className)}>
       <div
         aria-hidden
         className="absolute top-1/3 left-1/2 size-80 -translate-x-1/2 rounded-full bg-secondary/10 blur-3xl dark:bg-secondary/20"

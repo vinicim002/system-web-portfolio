@@ -81,9 +81,16 @@
   }
   html {
     @apply font-sans;
+    /* Esconde a barra de rolagem da página (a rolagem continua funcionando) */
+    scrollbar-width: none;
+  }
+  html::-webkit-scrollbar {
+    display: none;
   }
   body {
     @apply bg-background text-foreground;
+    /* Evita rolagem lateral causada por textos gigantes em vw */
+    overflow-x: clip;
   }
   h1,
   h2,
@@ -97,6 +104,41 @@
   }
   :focus-visible {
     @apply outline-2 outline-offset-2 outline-ring;
+  }
+}
+
+/* Animações decorativas (desligadas com prefers-reduced-motion nos componentes) */
+@theme {
+  --animate-marquee: marquee 45s linear infinite;
+  --animate-marquee-reverse: marquee 45s linear infinite reverse;
+  --animate-float: float 4s ease-in-out infinite;
+  --animate-caret: caret 1s steps(1) infinite;
+  --animate-flow: flow 1.2s linear infinite;
+  --animate-spin-slow: spin 24s linear infinite;
+
+  @keyframes marquee {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+  @keyframes float {
+    0%,
+    100% {
+      transform: translate(0, 0);
+    }
+    50% {
+      transform: translate(6px, -6px);
+    }
+  }
+  @keyframes flow {
+    to {
+      background-position: 20px 0;
+    }
+  }
+  @keyframes caret {
+    50% {
+      opacity: 0;
+    }
   }
 }
 

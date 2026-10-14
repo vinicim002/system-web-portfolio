@@ -59,3 +59,16 @@ export function InstagramIcon(props: IconProps) {
     </svg>
   );
 }
+
+// Logo do Gmail nas cores oficiais da marca (exceção à regra de tokens por ser logo)
+export function GmailIcon(props: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden {...props}>
+      <path fill="#4285F4" d="M1.636 21.002h3.819v-9.273L0 7.638v11.728c0 .904.732 1.636 1.636 1.636z" />
+      <path fill="#34A853" d="M18.545 21.002h3.819c.904 0 1.636-.732 1.636-1.636V7.638l-5.455 4.091z" />
+      <path fill="#FBBC04" d="M18.545 4.638v7.091L24 7.638V5.457c0-2.023-2.309-3.178-3.927-1.964z" />
+      <path fill="#EA4335" d="M5.455 11.729V4.638L12 9.548l6.545-4.91v7.091L12 16.638z" />
+      <path fill="#C5221F" d="M0 5.457v2.181l5.455 4.091V4.638L3.927 3.493C2.309 2.279 0 3.434 0 5.457z" />
+    </svg>
+  );
+}

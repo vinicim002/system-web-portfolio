@@ -8,7 +8,7 @@ export async function IntroCard({ className }: { className?: string }) {
   const t = await getTranslations("home.intro");
 
   return (
-    <BentoCard className={className}>
+    <BentoCard waves className={className}>
       <div className="flex h-full flex-col gap-6 2xl:gap-8">
         <p className="font-mono text-xs text-muted-foreground">{siteConfig.domain}</p>
 
@@ -26,7 +26,7 @@ export async function IntroCard({ className }: { className?: string }) {
           {siteConfig.skills.map((skill) => (
             <li
               key={skill}
-              className="rounded-full border border-border px-3 py-1 text-xs font-medium"
+              className="rounded-full border border-border bg-card/80 px-3 py-1 text-xs font-medium backdrop-blur-sm"
             >
               {skill}
             </li>

@@ -9,9 +9,9 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
   if (!hasLocale(routing.locales, locale)) notFound();
   setRequestLocale(locale);
 
-  // No desktop o bento ocupa a altura da tela menos o header (h-16)
+  // No desktop o bento ocupa a altura da tela menos o header (h-20)
   return (
-    <main className="mx-auto w-full max-w-[1920px] px-4 sm:px-6 lg:h-[calc(100dvh-4rem)] lg:px-8 lg:pb-6">
+    <main className="mx-auto w-full max-w-[1920px] px-4 sm:px-6 lg:h-[calc(100dvh-5rem)] lg:px-8 lg:pb-6">
       <HeroBento locale={locale} />
     </main>
   );

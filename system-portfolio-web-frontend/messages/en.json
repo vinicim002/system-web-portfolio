@@ -1,0 +1,206 @@
+{
+  "meta": {
+    "title": "Vinicius Vila Nova · Software Engineer",
+    "description": "Full stack Software Engineer: real applications with React/TypeScript and Java/Spring, focused on backend, architecture and distributed systems."
+  },
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "projects": "Projects",
+    "contact": "Contact",
+    "main": "Main navigation"
+  },
+  "theme": {
+    "toggle": "Toggle light/dark theme"
+  },
+  "language": {
+    "label": "Language",
+    "pt": "Português",
+    "en": "English"
+  },
+  "home": {
+    "intro": {
+      "greeting": "Hello!",
+      "name": "I'm Vinicius",
+      "bio": "Full stack Software Engineer. I build real applications with React/TypeScript and Java/Spring Boot, going deeper into backend, architecture and distributed systems.",
+      "contact": "Contact me",
+      "projects": "See projects",
+      "cv": "CV"
+    },
+    "location": {
+      "title": "Location",
+      "place": "Brazil",
+      "localTime": "Local time"
+    },
+    "badge": {
+      "label": "Dev Pass",
+      "role": "Software Engineer · Full Stack",
+      "hint": "Drag the badge"
+    },
+    "social": {
+      "title": "Social media",
+      "github": "GitHub",
+      "linkedin": "LinkedIn",
+      "instagram": "Instagram",
+      "x": "X",
+      "youtube": "YouTube",
+      "tiktok": "TikTok",
+      "soon": "coming soon"
+    },
+    "projects": {
+      "title": "Latest projects",
+      "viewAll": "View all",
+      "empty": "No published projects yet."
+    }
+  },
+  "project": {
+    "status": {
+      "production": "In production",
+      "mvp": "MVP",
+      "in_progress": "In progress",
+      "proposal": "Technical proposal"
+    },
+    "category": {
+      "all": "All",
+      "mobile": "Mobile",
+      "web": "Web",
+      "automation": "Automation"
+    },
+    "back": "Back to projects",
+    "stack": "Stack",
+    "repo": "Repository",
+    "demo": "View demo",
+    "openCase": "View case",
+    "proposalNote": "This case describes a technical proposal: the content shows what was designed and planned, not a completed delivery.",
+    "next": "Want to know more about this project?",
+    "contact": "Contact me"
+  },
+  "about": {
+    "meta": {
+      "title": "About",
+      "description": "Full stack Software Engineer going deeper into backend, architecture and distributed systems."
+    },
+    "titleTop": "about",
+    "titleBottom": "me.",
+    "photoAlt": "Photo of Vinicius Vila Nova",
+    "heading": "nice to meet you!",
+    "bio1": "I build complete web products and have hands-on experience with applications for real-world operations. I work with React/TypeScript on the front end and Java/Spring on the back end, with PostgreSQL, authentication, integrations and infrastructure.",
+    "bio2": "My professional growth is focused on going deeper into backend engineering, system design, cloud and distributed systems, keeping front end as a complementary skill.",
+    "quote": "I don't just want to know more tools. I want to understand systems.",
+    "stack": {
+      "title": "Stack by area",
+      "subtitle": "Technologies I use in real projects.",
+      "areas": {
+        "backend": {
+          "title": "Back end",
+          "tag": "Main focus"
+        },
+        "frontend": {
+          "title": "Front end",
+          "tag": "Complementary"
+        },
+        "data": {
+          "title": "Data",
+          "tag": "Modeling and time series"
+        },
+        "infra": {
+          "title": "Infra",
+          "tag": "Deploy and hosting"
+        }
+      }
+    },
+    "process": {
+      "title": "How I work",
+      "steps": {
+        "discovery": {
+          "title": "Understand the problem",
+          "text": "Map the operational need before writing code."
+        },
+        "modeling": {
+          "title": "Modeling",
+          "text": "Design data, domains and flows with evolution in mind."
+        },
+        "build": {
+          "title": "Implementation",
+          "text": "Build end to end, from the database to the interface."
+        },
+        "tests": {
+          "title": "Testing",
+          "text": "Validate business rules and integrations."
+        },
+        "deploy": {
+          "title": "Deploy and observability",
+          "text": "Ship and monitor behavior in production."
+        }
+      },
+      "ai": "I use AI as a teacher, reviewer and copilot: to speed up repetitive tasks and support reviews, while still understanding, validating and deciding."
+    },
+    "studying": {
+      "title": "Currently studying",
+      "subtitle": "Next steps in my growth, not acquired experience.",
+      "items": [
+        "Deep Java, JVM and concurrency",
+        "PostgreSQL: indexes, transactions and locking",
+        "Testing with JUnit, Mockito and Testcontainers",
+        "Redis and messaging (Kafka, RabbitMQ)",
+        "CI/CD, cloud and observability",
+        "System design and distributed systems",
+        "Python and AI Engineering"
+      ]
+    },
+    "cta": {
+      "title": "Shall we build something together?",
+      "button": "Contact me"
+    }
+  },
+  "projectsPage": {
+    "meta": {
+      "title": "Projects",
+      "description": "Product and software engineering cases by Vinicius Vila Nova."
+    },
+    "eyebrow": "Archive",
+    "title": "Projects",
+    "subtitle": "Product and engineering cases, with the real status of each one.",
+    "filterLabel": "Filter by category",
+    "empty": "No projects in this category yet.",
+    "count": "{count, plural, =0 {no projects} one {# project} other {# projects}}"
+  },
+  "contact": {
+    "meta": {
+      "title": "Contact",
+      "description": "Talk to Vinicius Vila Nova about projects and opportunities."
+    },
+    "title": "Get in touch",
+    "subtitle": "Want to talk about a project or an opportunity? Send me a message.",
+    "linkedin": "LinkedIn",
+    "github": "GitHub",
+    "site": "Website",
+    "email": "Email",
+    "location": "Location",
+    "follow": "Follow me",
+    "form": {
+      "name": "Your name",
+      "namePlaceholder": "Full name",
+      "email": "Email",
+      "emailPlaceholder": "you@email.com",
+      "message": "Message",
+      "messagePlaceholder": "Write your message...",
+      "submit": "Send message",
+      "sending": "Sending...",
+      "success": "Message sent! I'll reply as soon as possible.",
+      "error": "Couldn't send right now. Try again or reach me on LinkedIn.",
+      "notConfigured": "Message sending is still being set up. Meanwhile, reach me on LinkedIn."
+    },
+    "validation": {
+      "name": "Enter your name.",
+      "email": "Enter a valid email.",
+      "message": "The message must be at least 10 characters long."
+    }
+  },
+  "footer": {
+    "tagline": "Software Engineer building real applications with React/TypeScript and Java/Spring.",
+    "nav": "Navigation",
+    "social": "Social",
+    "rights": "All rights reserved."
+  }
+}

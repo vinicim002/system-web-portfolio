@@ -1,7 +1,7 @@
 import { ArrowUpRight, Award, GraduationCap } from "lucide-react";
 import { getLocale, getTranslations } from "next-intl/server";
 import { GlowCard } from "@/components/sections/shared/GlowCard";
-import { certifications, education } from "@/config/career";
+import { certifications, education, languages } from "@/config/career";
 import { PlaceholderBadge } from "./PlaceholderBadge";
 
 const iconChip =
@@ -39,6 +39,21 @@ export async function EducationCertifications() {
               </li>
             ))}
           </ul>
+
+          <div className="mt-auto border-t border-border pt-5">
+            <h3 className="mb-3 text-xs text-muted-foreground">{t("education.languages")}</h3>
+            <ul className="flex flex-wrap gap-2">
+              {languages.map((language) => (
+                <li
+                  key={language.name.pt}
+                  className="flex items-center gap-2 rounded-full border border-border bg-background/50 px-3 py-1.5 text-sm"
+                >
+                  <span className="font-medium">{language.name[locale]}</span>
+                  <span className="text-muted-foreground">· {language.level[locale]}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
         </GlowCard>
       </section>
 

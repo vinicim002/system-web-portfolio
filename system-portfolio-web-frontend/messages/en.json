@@ -182,7 +182,8 @@
       "current": "Present"
     },
     "education": {
-      "title": "Education"
+      "title": "Education",
+      "languages": "Languages"
     },
     "certifications": {
       "title": "Certifications",
@@ -242,7 +243,9 @@
     },
     "eyebrow": "Contact",
     "formTitle": "Send a message",
-    "formSubtitle": "Fill in the fields below and I'll get back to you by email."
+    "formSubtitle": "Fill in the fields below and I'll get back to you by email.",
+    "cv": "Résumé",
+    "cvValue": "Open PDF"
   },
   "footer": {
     "tagline": "Software Engineer building real applications with React/TypeScript and Java/Spring.",

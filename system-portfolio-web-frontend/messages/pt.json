@@ -182,7 +182,8 @@
       "current": "Atual"
     },
     "education": {
-      "title": "Formação"
+      "title": "Formação",
+      "languages": "Idiomas"
     },
     "certifications": {
       "title": "Certificações",
@@ -242,7 +243,9 @@
     },
     "eyebrow": "Contato",
     "formTitle": "Envie uma mensagem",
-    "formSubtitle": "Preencha os campos abaixo e eu retorno pelo seu e-mail."
+    "formSubtitle": "Preencha os campos abaixo e eu retorno pelo seu e-mail.",
+    "cv": "Currículo",
+    "cvValue": "Abrir PDF"
   },
   "footer": {
     "tagline": "Software Engineer construindo aplicações reais com React/TypeScript e Java/Spring.",

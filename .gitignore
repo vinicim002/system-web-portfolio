@@ -21,6 +21,13 @@ AGENTS.md
 
 # Regras, contexto e memória da IA (apenas local)
 .claude/
+CLAUDE.md
+
+# Spec Kit: templates e scripts ficam locais; specs/ e a constituição são versionados
+.specify/*
+!.specify/memory/
+.specify/memory/*
+!.specify/memory/constitution.md
 
 # Dependências
 node_modules/

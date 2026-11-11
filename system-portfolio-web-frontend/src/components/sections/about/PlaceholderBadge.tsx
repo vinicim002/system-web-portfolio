@@ -6,7 +6,7 @@ export async function PlaceholderBadge() {
   return (
     <span
       title={t("placeholderHint")}
-      className="inline-flex w-fit items-center rounded-full border border-dashed border-amber-400/60 px-2 py-0.5 font-mono text-[10px] tracking-wide text-amber-300 uppercase"
+      className="inline-flex w-fit items-center rounded-full border border-dashed border-accent-text/50 px-2 py-0.5 font-mono text-[10px] tracking-wide text-accent-text uppercase"
     >
       {t("placeholder")}
     </span>

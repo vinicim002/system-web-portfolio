@@ -11,6 +11,9 @@ create table public.admins (
 
 alter table public.admins enable row level security;
 
+-- Acesso explícito pela API (o projeto não expõe tabelas novas automaticamente)
+grant select on table public.admins to authenticated;
+
 -- Cada admin consegue ver a própria linha (usado pelo front para checar acesso)
 create policy "admins_read_self" on public.admins
   for select to authenticated
@@ -78,6 +81,10 @@ create trigger projects_set_updated_at
   for each row execute function public.set_updated_at();
 
 alter table public.projects enable row level security;
+
+-- Acesso explícito pela API; as policies abaixo decidem quais linhas cada papel vê/altera
+grant select on table public.projects to anon, authenticated;
+grant insert, update, delete on table public.projects to authenticated;
 
 create policy "projects_public_read" on public.projects
   for select to anon, authenticated

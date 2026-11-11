@@ -9,8 +9,8 @@ export const siteConfig = {
   // TODO: e-mail profissional ainda não confirmado (dossiê)
   email: null as string | null,
   copyrightYear: 2026,
-  // TODO: adicionar o PDF do CV em /public e apontar aqui
-  cvUrl: null as string | null,
+  // Versão do currículo sem telefone (public/cv/)
+  cvUrl: "/cv/vinicius-vila-nova-cv.pdf" as string | null,
   skills: ["Java", "Spring Boot", "PostgreSQL", "React", "TypeScript", "Docker"],
   social: {
     github: "https://github.com/vinicim002",

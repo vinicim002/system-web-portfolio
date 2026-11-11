@@ -1,4 +1,4 @@
-import { ArrowUpRight, Globe, MapPin } from "lucide-react";
+import { ArrowUpRight, FileText, Globe, MapPin } from "lucide-react";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { hasLocale } from "next-intl";
@@ -57,7 +57,7 @@ function ChannelCard({ label, value, href, icon }: ContactChannel) {
   return href ? (
     <a
       href={href}
-      target={href.startsWith("http") ? "_blank" : undefined}
+      target={href.startsWith("http") || href.endsWith(".pdf") ? "_blank" : undefined}
       rel="noreferrer"
       className={`${className} hover:-translate-y-0.5 hover:border-secondary/60 hover:shadow-[0_8px_32px_-12px] hover:shadow-secondary/60`}
     >
@@ -107,6 +107,16 @@ export default async function ContactPage({ params }: PageProps<"/[locale]/conta
       href: `https://${siteConfig.domain}`,
       icon: <Globe className="size-4.5" aria-hidden />,
     },
+    ...(siteConfig.cvUrl
+      ? [
+          {
+            label: t("cv"),
+            value: t("cvValue"),
+            href: siteConfig.cvUrl,
+            icon: <FileText className="size-4.5" aria-hidden />,
+          },
+        ]
+      : []),
     {
       label: t("location"),
       value: tHome("location.place"),
@@ -136,7 +146,7 @@ export default async function ContactPage({ params }: PageProps<"/[locale]/conta
 
           <ul className="grid gap-3 sm:grid-cols-2">
             {channels.map((channel) => (
-              <li key={channel.label}>
+              <li key={channel.label} className="sm:last:odd:col-span-2">
                 <ChannelCard {...channel} />
               </li>
             ))}

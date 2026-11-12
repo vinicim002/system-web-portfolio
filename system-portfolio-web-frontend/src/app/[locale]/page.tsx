@@ -1,10 +1,16 @@
 import { hasLocale } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
+import { connection } from "next/server";
 import { HeroBento } from "@/components/sections/home/HeroBento";
 import { routing } from "@/i18n/routing";
 
+// Montada a cada visita, como a página de projetos: sem casca pré-renderizada em cache, que no
+// Cloudflare travava ao ser completada depois de o admin salvar. Os dados vêm do cache "projects".
+export const instant = false;
+
 export default async function HomePage({ params }: PageProps<"/[locale]">) {
+  await connection();
   const { locale } = await params;
   if (!hasLocale(routing.locales, locale)) notFound();
   setRequestLocale(locale);

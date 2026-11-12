@@ -1,15 +1,16 @@
 import type { Metadata } from "next";
 import { hasLocale } from "next-intl";
+import { connection } from "next/server";
 import { Suspense } from "react";
 import { ProjectCase } from "@/components/sections/project/ProjectCase";
 import { ProjectCaseSkeleton } from "@/components/sections/project/ProjectCaseSkeleton";
 import { routing } from "@/i18n/routing";
-import { getProjectBySlug, getProjectSlugs } from "@/lib/api/projects";
+import { getProjectBySlug } from "@/lib/api/projects";
 
-export async function generateStaticParams() {
-  const slugs = await getProjectSlugs();
-  return slugs.map((slug) => ({ slug }));
-}
+// Montada a cada visita (sem pré-render por slug): no Cloudflare, uma página estática que
+// depende do cache "projects" travava o Worker ao ser refeita depois de o admin salvar.
+// Os dados continuam no cache "projects".
+export const instant = false;
 
 export async function generateMetadata({
   params,
@@ -21,7 +22,8 @@ export async function generateMetadata({
   return { title: project.title, description: project.summary ?? undefined };
 }
 
-export default function ProjectPage({ params }: PageProps<"/[locale]/projetos/[slug]">) {
+export default async function ProjectPage({ params }: PageProps<"/[locale]/projetos/[slug]">) {
+  await connection();
   return (
     <main>
       <Suspense fallback={<ProjectCaseSkeleton />}>

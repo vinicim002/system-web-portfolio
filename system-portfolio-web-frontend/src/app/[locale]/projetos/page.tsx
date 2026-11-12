@@ -17,7 +17,13 @@ export async function generateMetadata({ params }: PageProps<"/[locale]/projetos
   return { title: t("title"), description: t("description") };
 }
 
+// Rota montada a cada visita, sem casca pré-renderizada em cache. No Cloudflare, completar a
+// fronteira de Suspense a partir da casca guardada depois de uma invalidação deixava a lista
+// presa no esqueleto (o documento nunca terminava). Os dados continuam no cache "projects".
+export const instant = false;
+
 export default async function ProjectsPage({ params }: PageProps<"/[locale]/projetos">) {
+  await connection();
   const { locale } = await params;
   if (!hasLocale(routing.locales, locale)) notFound();
   setRequestLocale(locale);

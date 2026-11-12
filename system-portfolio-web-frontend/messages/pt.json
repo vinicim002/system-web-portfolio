@@ -362,7 +362,7 @@
         "cancel": "Cancelar",
         "created": "Projeto criado como {state}.",
         "updated": "Alterações salvas.",
-        "saveError": "Não foi possível salvar. Confira os campos.",
+        "saveError": "Não foi possível salvar. Confira a conexão e os campos e tente de novo; o que você digitou continua aqui.",
         "fixErrors": "Corrija os campos marcados antes de salvar.",
         "sections": {
           "identity": "Identificação",
@@ -432,7 +432,7 @@
         "deleteConfirm": "Excluir",
         "deleteCancel": "Cancelar",
         "deleted": "Projeto excluído: {title}.",
-        "error": "Não foi possível concluir a ação.",
+        "error": "Não foi possível concluir a ação. Confira a conexão e tente de novo.",
         "filteredOrderHint": "Com filtros ativos, subir e descer troca de lugar com o vizinho na lista completa."
       }
     },

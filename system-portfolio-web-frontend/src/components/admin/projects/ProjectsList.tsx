@@ -22,14 +22,15 @@ export function ProjectsList() {
   const { data: projects, isPending, isError } = useAdminProjects(filters);
   // Lista completa: define o primeiro e o último da ordem mesmo com filtros ativos
   const { data: allProjects } = useAdminProjects();
-  const lastOrder = (allProjects?.length ?? 0) - 1;
+  // Posição na ordem completa (não o número salvo, que pode não começar em 0)
+  const allIds = (allProjects ?? []).map((project) => project.id);
   const [toDelete, setToDelete] = useState<{ id: string; title: string } | null>(null);
 
   const actionsFor = (project: ProjectRow) => (
     <ProjectActions
       project={project}
-      isFirst={project.sort_order === 0}
-      isLast={project.sort_order >= lastOrder}
+      isFirst={allIds[0] === project.id}
+      isLast={allIds[allIds.length - 1] === project.id}
       onDelete={setToDelete}
     />
   );

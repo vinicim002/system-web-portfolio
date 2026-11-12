@@ -86,12 +86,12 @@ entrar com conta não admin e ver acesso negado.
 **Teste independente**: criar, editar, publicar, destacar, mover e excluir recarregando a cada passo;
 com sessão `aal1` tentar gravar pelo console e ver recusa.
 
-- [ ] T023 [P] [US2] Criar as funções puras de mapeamento em `F/src/lib/api/admin/project-rows.ts`: rascunho → colunas (textos vazios viram `null`, como em `projects.local.ts`), nova ordem para `move` (troca com o vizinho; nada no topo/fim) e para encaixar um `sort_order` pedido, tradução de erro do PostgREST (`23505` → `slug_taken`, nenhuma linha → `not_found`)
-- [ ] T024 [P] [US2] Testes Vitest em `F/src/lib/api/admin/project-rows.test.ts` para as funções de T023
-- [ ] T025 [US2] Criar `F/src/lib/api/admin/projects.supabase.ts` implementando `AdminProjectsService` sobre `admin-client.ts` (sem imagens ainda: grava as URLs como vierem): `list` ordenado por `sort_order` com filtros de categoria/status no banco e busca sem acento no cliente (`normalizeSearch`); `get`; `isSlugAvailable`; `create` com `id` de `crypto.randomUUID()`; `update`; `remove`; `setPublished`; `setFeatured`; `move` e encaixe de ordem via `rpc("reorder_projects", { ids })`
-- [ ] T026 [US2] Em `F/src/lib/api/admin/projects.ts`, exportar a implementação Supabase quando `NEXT_PUBLIC_SUPABASE_URL` e `NEXT_PUBLIC_SUPABASE_ANON_KEY` existirem e a local caso contrário, sem mudar a interface
-- [ ] T027 [US2] Garantir que as mutações mostram erro claro e mantêm o formulário (RF-017) conferindo `F/src/components/admin/projects/ProjectForm.tsx` e `F/src/components/admin/projects/ProjectActions.tsx` com a rede desligada; ajustar só mensagens em `F/messages/pt.json` se faltar alguma
-- [ ] T028 [US2] Conferir a História 2 no `npm run dev` com o Supabase local, incluindo a recusa em `aal1` pelo console do navegador e um rascunho que não abre no site nem pelo endereço direto (RF-016)
+- [X] T023 [P] [US2] Criar as funções puras de mapeamento em `F/src/lib/api/admin/project-rows.ts`: rascunho → colunas (textos vazios viram `null`, como em `projects.local.ts`), nova ordem para `move` (troca com o vizinho; nada no topo/fim) e para encaixar um `sort_order` pedido, tradução de erro do PostgREST (`23505` → `slug_taken`, nenhuma linha → `not_found`)
+- [X] T024 [P] [US2] Testes Vitest em `F/src/lib/api/admin/project-rows.test.ts` para as funções de T023
+- [X] T025 [US2] Criar `F/src/lib/api/admin/projects.supabase.ts` implementando `AdminProjectsService` sobre `admin-client.ts` (sem imagens ainda: grava as URLs como vierem): `list` ordenado por `sort_order` com filtros de categoria/status no banco e busca sem acento no cliente (`normalizeSearch`); `get`; `isSlugAvailable`; `create` com `id` de `crypto.randomUUID()`; `update`; `remove`; `setPublished`; `setFeatured`; `move` e encaixe de ordem via `rpc("reorder_projects", { ids })`
+- [X] T026 [US2] Em `F/src/lib/api/admin/projects.ts`, exportar a implementação Supabase quando `NEXT_PUBLIC_SUPABASE_URL` e `NEXT_PUBLIC_SUPABASE_ANON_KEY` existirem e a local caso contrário, sem mudar a interface
+- [X] T027 [US2] Garantir que as mutações mostram erro claro e mantêm o formulário (RF-017) conferindo `F/src/components/admin/projects/ProjectForm.tsx` e `F/src/components/admin/projects/ProjectActions.tsx` com a rede desligada; ajustar só mensagens em `F/messages/pt.json` se faltar alguma
+- [X] T028 [US2] Conferir a História 2 no `npm run dev` com o Supabase local, incluindo a recusa em `aal1` pelo console do navegador e um rascunho que não abre no site nem pelo endereço direto (RF-016)
 
 **Ponto de controle**: Histórias 1 e 2 funcionando sozinhas; `npm run test` passa.
 

@@ -123,6 +123,9 @@ export function ProjectForm({ projectId, initial, backHref, footerExtra }: Proje
     } catch (error) {
       if (isAdminServiceError(error) && error.code === "slug_taken") {
         setError("slug", { type: "slugTaken", message: "slugTaken" }, { shouldFocus: true });
+      } else if (isAdminServiceError(error) && error.code === "session_expired") {
+        // O formulário fica como está; o guarda abre o aviso para entrar de novo
+        toast.error(t("auth.errors.session_expired"));
       } else {
         toast.error(t("projects.form.saveError"));
       }

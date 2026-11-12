@@ -1,8 +1,9 @@
 import { mockProjects } from "@/lib/api/projects.mock";
 import { normalizeSearch } from "@/lib/slugify";
-import type { MoveDirection, ProjectDraft } from "@/types/admin";
+import type { MoveDirection } from "@/types/admin";
 import type { ProjectRow } from "@/types/project";
 import { AdminServiceError } from "./errors";
+import { draftToColumns as fromDraft } from "./project-rows";
 import type { AdminProjectsService } from "./projects";
 
 const DEFAULT_DELAY_MS = 150;
@@ -149,32 +150,4 @@ function nextTimestamp(previous: string): string {
   const now = Date.now();
   const last = Date.parse(previous);
   return new Date(Number.isNaN(last) || now > last ? now : last + 1).toISOString();
-}
-
-function emptyToNull(value: string): string | null {
-  const trimmed = value.trim();
-  return trimmed === "" ? null : trimmed;
-}
-
-// Rascunho do formulário → linha da tabela (textos vazios viram null)
-function fromDraft(draft: ProjectDraft): Omit<ProjectRow, "id" | "created_at" | "updated_at"> {
-  return {
-    slug: draft.slug.trim(),
-    title_pt: draft.title_pt.trim(),
-    title_en: draft.title_en.trim(),
-    summary_pt: emptyToNull(draft.summary_pt),
-    summary_en: emptyToNull(draft.summary_en),
-    content_pt: emptyToNull(draft.content_pt),
-    content_en: emptyToNull(draft.content_en),
-    category: draft.category === "" ? null : draft.category,
-    status: draft.status,
-    tech_stack: [...draft.tech_stack],
-    cover_url: emptyToNull(draft.cover_url),
-    gallery_urls: [...draft.gallery_urls],
-    repo_url: emptyToNull(draft.repo_url),
-    demo_url: emptyToNull(draft.demo_url),
-    featured: draft.featured,
-    published: draft.published,
-    sort_order: draft.sort_order,
-  };
 }

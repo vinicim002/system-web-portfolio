@@ -44,7 +44,8 @@ sem sessão ──senha correta──▶ aal1 ──código correto──▶ aal
 | `exists (admins.user_id = auth.uid())` | o mesmo **e** `auth.jwt() ->> 'aal' = 'aal2'` |
 
 Efeito em cadeia (sem mudar as policies): `projects_public_read` (rascunhos só para admin `aal2`),
-`projects_admin_insert/update/delete` e `project_images_admin_insert/update/delete`.
+`projects_admin_insert/update/delete` e `project_images_admin_insert/update/delete`. Policy nova:
+`project_images_admin_select` (o Storage exige leitura para apagar e listar).
 
 ## Função `public.reorder_projects(ids uuid[])` (nova)
 
@@ -67,7 +68,7 @@ Mesmas colunas e regras da 001 (`specs/001-admin-telas/data-model.md`). Mudança
 | Regra | Detalhe |
 |---|---|
 | Caminho | `projects/<projectId>/<uuid>.<ext>` (nome aleatório: sem colisão entre projetos) |
-| Tipo e tamanho | só `image/*`, até 5 MB (limites do bucket + checagem no navegador) |
+| Tipo e tamanho | só `image/webp`, `image/png`, `image/jpeg`, `image/avif`, até 5 MB (limites do bucket + checagem no navegador) |
 | URL guardada | URL pública do objeto |
 | Órfã | URL do bucket que existia antes do salvamento e não existe depois → apagada |
 | Exclusão do projeto | apaga tudo em `projects/<projectId>/` |

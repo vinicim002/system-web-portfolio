@@ -31,8 +31,8 @@ com `--yes` depois do ok.
 **Objetivo**: banco local com MFA ligado e a nova regra de segundo fator testada.
 
 - [ ] T001 Ligar o TOTP para testes locais em `B/config.toml`: `[auth.mfa.totp] enroll_enabled = true` e `verify_enabled = true`
-- [ ] T002 Criar a migration `B/migrations/20261112120000_admin_mfa.sql`: redefinir `public.is_admin()` como `exists (select 1 from public.admins where user_id = (select auth.uid())) and coalesce((select auth.jwt()) ->> 'aal', '') = 'aal2'` (security definer, `search_path` vazio, mesmos grants); criar `public.reorder_projects(ids uuid[])` (`security invoker`; recusa com `42501` se `is_admin()` for falso; recusa se `ids` não tiver todos os projetos; define `sort_order` = posição de 0 em diante numa transação; `grant execute` para `authenticated`)
-- [ ] T003 Criar `B/tests/rls_mfa.sql`: com `set local role authenticated` e `request.jwt.claims` do admin em `aal1` e em `aal2` (e de um usuário não admin), conferir: rascunho invisível em `aal1` e visível em `aal2`; insert/update/delete recusados em `aal1` e aceitos em `aal2`; `reorder_projects` recusado em `aal1`; upload/delete em `storage.objects` do `project-images` recusados em `aal1`; anônimo continua lendo só publicados
+- [ ] T002 Criar a migration `B/migrations/20261112120000_admin_mfa.sql`: redefinir `public.is_admin()` como `exists (select 1 from public.admins where user_id = (select auth.uid())) and coalesce((select auth.jwt()) ->> 'aal', '') = 'aal2'` (security definer, `search_path` vazio, mesmos grants); criar `public.reorder_projects(ids uuid[])` (`security invoker`; recusa com `42501` se `is_admin()` for falso; recusa se `ids` não tiver todos os projetos; define `sort_order` = posição de 0 em diante numa transação; `grant execute` para `authenticated`); criar a policy `project_images_admin_select` em `storage.objects` (`for select to authenticated using (bucket_id = 'project-images' and (select public.is_admin()))`), exigida pelo Storage para apagar e listar arquivos
+- [ ] T003 Criar `B/tests/rls_mfa.sql`: com `set local role authenticated` e `request.jwt.claims` do admin em `aal1` e em `aal2` (e de um usuário não admin), conferir: rascunho invisível em `aal1` e visível em `aal2`; insert/update/delete recusados em `aal1` e aceitos em `aal2`; `reorder_projects` recusado em `aal1`; upload, listagem e delete em `storage.objects` do `project-images` recusados em `aal1` e aceitos em `aal2`; anônimo continua lendo só publicados
 - [ ] T004 Subir o Supabase local, rodar `npx supabase db reset` e `B/tests/rls_mfa.sql` em `B/` e corrigir até todos os casos passarem
 - [ ] T005 [P] Adicionar o host do Storage (`yxqarosyroxewbicoxkx.supabase.co`, caminho `/storage/v1/object/public/project-images/**`) em `images.remotePatterns` de `F/next.config.ts`
 
@@ -68,12 +68,12 @@ entrar com conta não admin e ver acesso negado.
 - [ ] T014 [P] [US1] Criar `F/src/components/admin/auth/MfaEnroll.tsx`: nome do fator (padrão "celular"), QR code do Supabase como `<img>` com `alt`, código manual com botão copiar, campo de 6 dígitos (`inputMode="numeric"`, `autoComplete="one-time-code"`) e confirmar com `useConfirmEnrollment`
 - [ ] T015 [P] [US1] Criar `F/src/components/admin/auth/MfaVerify.tsx`: campo de 6 dígitos com envio automático ao completar, erro de código inválido com dica de conferir a hora automática do celular, e "usar outra conta" (sair)
 - [ ] T016 [US1] Reescrever `F/src/app/admin/(auth)/login/page.tsx` para escolher a etapa pelo `useAuthStatus` (senha → cadastro → código; `not_admin` mostra acesso negado e sai) e, em `ready`, ir para `?voltar=` (aceitar só caminhos que começam com `/admin`) ou `/admin`, dentro de `<Suspense>` por causa do `useSearchParams`
-- [ ] T017 [US1] Criar `F/src/components/admin/auth/AuthGate.tsx` (sem `ready` → `router.replace("/admin/login?voltar=<rota>")`; enquanto carrega, moldura sem conteúdo) e usar em `F/src/app/admin/(painel)/layout.tsx` em volta do `AdminShell`
-- [ ] T018 [US1] Adicionar o botão Sair (`useSignOut`, depois `router.replace("/admin/login")`) em `F/src/components/admin/layout/AdminTopbar.tsx` e na gaveta de `F/src/components/admin/layout/AdminShell.tsx`, sem mudar o restante do layout
+- [ ] T017 [US1] Criar `F/src/components/admin/auth/AuthGate.tsx` (sem `ready` → `router.replace("/admin/login?voltar=<rota>")`; enquanto carrega, moldura sem conteúdo; se a sessão cair com formulário alterado, avisar "entre de novo para salvar" e guardar o rascunho em memória até a volta) e usar em `F/src/app/admin/(painel)/layout.tsx` em volta do `AdminShell`
+- [ ] T018 [US1] Adicionar o botão Sair (`useSignOut`, depois `router.replace("/admin/login")`) em `F/src/components/admin/layout/AdminTopbar.tsx` e na gaveta de `F/src/components/admin/layout/AdminShell.tsx`, sem mudar o restante do layout; recarregar a página ao voltar do cache do navegador (`pageshow` com `persisted`) quando não houver sessão
 - [ ] T019 [P] [US1] Criar `F/src/components/admin/layout/SecondFactorReminder.tsx` (aparece quando `factorCount === 1`, com atalho para `/admin/seguranca`) e mostrar no topo do conteúdo em `AdminShell.tsx`
 - [ ] T020 [US1] Criar `F/src/app/admin/(painel)/seguranca/page.tsx` com a lista de fatores (`useFactors`), o cadastro de outro fator (reaproveita `MfaEnroll`) e o passo a passo de recuperação pelo painel do Supabase (RF-020)
 - [ ] T021 [US1] Mostrar `SampleDataNotice` só no Início e em Sistemas (tirar da moldura geral) em `F/src/components/admin/layout/AdminShell.tsx`, `F/src/app/admin/(painel)/page.tsx` e `F/src/app/admin/(painel)/sistemas/page.tsx` (RF-018)
-- [ ] T022 [US1] Conferir a História 1 no `npm run dev` com o Supabase local (conta admin criada no Studio local + linha em `admins`) e escrever o passo a passo de recuperação de acesso em `.claude/context/supabase.md`
+- [ ] T022 [US1] Conferir a História 1 no `npm run dev` com o Supabase local (conta admin local criada por SQL em `auth.users` ou pelo Studio, subindo o Supabase sem o `-x studio`, + linha em `admins`) e escrever o passo a passo de recuperação de acesso em `.claude/context/supabase.md`
 
 **Ponto de controle**: História 1 funcionando sozinha. tsc, lint e build sem erros; telas nos dois temas e em 390×844.
 
@@ -91,7 +91,7 @@ com sessão `aal1` tentar gravar pelo console e ver recusa.
 - [ ] T025 [US2] Criar `F/src/lib/api/admin/projects.supabase.ts` implementando `AdminProjectsService` sobre `admin-client.ts` (sem imagens ainda: grava as URLs como vierem): `list` ordenado por `sort_order` com filtros de categoria/status no banco e busca sem acento no cliente (`normalizeSearch`); `get`; `isSlugAvailable`; `create` com `id` de `crypto.randomUUID()`; `update`; `remove`; `setPublished`; `setFeatured`; `move` e encaixe de ordem via `rpc("reorder_projects", { ids })`
 - [ ] T026 [US2] Em `F/src/lib/api/admin/projects.ts`, exportar a implementação Supabase quando `NEXT_PUBLIC_SUPABASE_URL` e `NEXT_PUBLIC_SUPABASE_ANON_KEY` existirem e a local caso contrário, sem mudar a interface
 - [ ] T027 [US2] Garantir que as mutações mostram erro claro e mantêm o formulário (RF-017) conferindo `F/src/components/admin/projects/ProjectForm.tsx` e `F/src/components/admin/projects/ProjectActions.tsx` com a rede desligada; ajustar só mensagens em `F/messages/pt.json` se faltar alguma
-- [ ] T028 [US2] Conferir a História 2 no `npm run dev` com o Supabase local, incluindo a recusa em `aal1` pelo console do navegador
+- [ ] T028 [US2] Conferir a História 2 no `npm run dev` com o Supabase local, incluindo a recusa em `aal1` pelo console do navegador e um rascunho que não abre no site nem pelo endereço direto (RF-016)
 
 **Ponto de controle**: Histórias 1 e 2 funcionando sozinhas; `npm run test` passa.
 
@@ -106,9 +106,9 @@ no Storage local não sobra nada de `projects/<id>/`.
 
 - [ ] T029 [P] [US3] Criar as funções puras em `F/src/lib/api/admin/storage-paths.ts`: caminho `projects/<projectId>/<uuid>.<ext>` (extensão pelo tipo da imagem), saber se uma URL é do bucket (prefixo `/storage/v1/object/public/project-images/`), e listar órfãs (URLs do bucket que existiam antes e não existem depois; caminhos `/images/...` nunca entram)
 - [ ] T030 [P] [US3] Testes Vitest em `F/src/lib/api/admin/storage-paths.test.ts` (inclui: `/images/...` nunca é órfã; ordem e duplicatas não geram órfã)
-- [ ] T031 [US3] Criar `F/src/lib/api/admin/storage.ts`: enviar cada URL `blob:` (`fetch` → `Blob`; recusar se não for `image/*` ou passar de "5 MB (5.242.880 bytes)") e devolver a URL pública; apagar uma lista de caminhos; apagar a pasta `projects/<id>/`
-- [ ] T032 [US3] Usar `storage.ts` em `create`/`update`/`remove` de `F/src/lib/api/admin/projects.supabase.ts`: enviar antes de gravar; se algum envio ou a gravação falhar, apagar os envios novos e lançar erro (RF-013); depois de gravar, apagar as órfãs; ao excluir, apagar a pasta
-- [ ] T033 [US3] Manter as URLs `blob:` válidas até o salvamento terminar e liberar as que foram trocadas pelas URLs públicas, ajustando `F/src/hooks/admin/use-preview-images.ts` sem mudar `ImagePicker` e `GalleryEditor`
+- [ ] T031 [US3] Criar `F/src/lib/api/admin/storage.ts`: enviar cada URL `blob:` (`fetch` → `Blob`; aceitar só `image/webp`, `image/png`, `image/jpeg` e `image/avif` (os tipos permitidos no bucket) e até "5 MB (5.242.880 bytes)") e devolver a URL pública; apagar uma lista de caminhos; apagar a pasta `projects/<id>/`
+- [ ] T032 [US3] Usar `storage.ts` em `create`/`update`/`remove` de `F/src/lib/api/admin/projects.supabase.ts`: enviar antes de gravar; se algum envio ou a gravação falhar, apagar os envios novos e lançar erro (RF-013), tratando sessão expirada (401/JWT vencido) como "entre de novo"; depois de gravar, apagar as órfãs; ao excluir, apagar a pasta
+- [ ] T033 [US3] Restringir a escolha às 4 extensões aceitas pelo bucket (`accept` e mensagem de recusa em `F/src/hooks/admin/use-preview-images.ts`, com texto em `F/messages/pt.json`) e manter as URLs `blob:` válidas até o salvamento terminar e liberar as que foram trocadas pelas URLs públicas, ajustando `F/src/hooks/admin/use-preview-images.ts` sem mudar `ImagePicker` e `GalleryEditor`
 - [ ] T034 [US3] Conferir a História 3 no `npm run dev` com o Supabase local (incluindo projeto antigo com `/images/...` editado sem perder imagens)
 
 **Ponto de controle**: Histórias 1 a 3 funcionando sozinhas.
@@ -127,7 +127,7 @@ no Storage local não sobra nada de `projects/<id>/`.
 - [ ] T037 [US4] Chamar `revalidatePublicSite()` no `onSuccess` de `useSaveProject`, `useDeleteProject`, `useTogglePublished`, `useToggleFeatured` e `useMoveProject` em `F/src/hooks/admin/use-admin-projects.ts`, com toast de aviso se falhar
 - [ ] T038 [US4] Somar o tag cache D1 em `F/open-next.config.ts` (`tagCache: d1NextTagCache`) e o binding `NEXT_TAG_CACHE_D1` em `F/wrangler.jsonc` (banco criado na T039)
 - [ ] T039 [US4] 🔒 Criar o banco D1 na conta do autor (`npx wrangler d1 create system-portfolio-web-tag-cache`) e fixar o `database_id` em `F/wrangler.jsonc`
-- [ ] T040 [US4] Conferir a História 4 no `npm run dev` e no preview do Cloudflare (`npx opennextjs-cloudflare build && npx opennextjs-cloudflare preview`) apontando para o Supabase local: despublicar some da home e da lista em até 1 minuto; `POST /api/revalidate` sem token 401, com `aal1` 403, com `aal2` 200
+- [ ] T040 [US4] Conferir a História 4 no `npm run dev` com o Supabase local (despublicar some da home e da lista em até 1 minuto; `POST /api/revalidate` sem token 401, com `aal1` 403, com `aal2` 200) e, no preview do Cloudflare (`npx opennextjs-cloudflare build && npx opennextjs-cloudflare preview`), só 401/403 e o tag cache D1 local criado — o preview não alcança o Supabase local (`global_fetch_strictly_public` bloqueia IP privado) e o teste completo fica para T046
 
 **Ponto de controle**: Histórias 1 a 4 funcionando sozinhas no ambiente local.
 
@@ -152,7 +152,7 @@ fazer uma alteração que aparece no site em até 1 minuto.
 
 - [ ] T044 [US5] 🔒 Com o autor: primeiro acesso no projeto real pelo `npm run dev` (cadastro do fator no app autenticador dele e, de preferência, um segundo fator), confirmando a História 1 com a conta real
 - [ ] T045 [US5] Adicionar `"vars": { "ADMIN_ENABLED": "true" }` em `F/wrangler.jsonc`
-- [ ] T046 [US5] 🔒 Publicar (`npm run deploy` em `F/`) e conferir em produção: login com código, uma edição aparecendo no site em até 1 minuto, `noindex` nas telas do admin e `/admin/projetos` sem sessão levando ao login
+- [ ] T046 [US5] 🔒 Publicar (`npm run deploy` em `F/`) e conferir em produção: login com código, despublicar/publicar e uma edição aparecendo no site em até 1 minuto (CS-004, também no inglês), `noindex` nas telas do admin e `/admin/projetos` sem sessão levando ao login
 
 ---
 

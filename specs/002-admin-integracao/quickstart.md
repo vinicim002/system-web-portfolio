@@ -17,7 +17,7 @@ regras em [data-model.md](./data-model.md).
 
 ```bash
 # banco local (system-portfolio-web-backend/)
-npx supabase start -x studio,imgproxy,mailpit,realtime,logflare,vector,supavisor,postgres-meta
+npx supabase start -x imgproxy,mailpit,realtime,logflare,vector,supavisor   # com Studio, para criar a conta admin local
 npx supabase db reset                 # migrations + seed
 # testes de RLS aal1 x aal2 (script SQL da implementação)
 

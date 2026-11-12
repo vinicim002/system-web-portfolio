@@ -1,0 +1,38 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  // Front do portfólio no Cloudflare Workers via @opennextjs/cloudflare
+  "name": "system-portfolio-web",
+  // worker.ts envolve o worker gerado pelo OpenNext e adiciona o cron de keep-alive
+  "main": "worker.ts",
+  "compatibility_date": "2026-10-27",
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS"
+  },
+  // Cache do Next (open-next.config.ts). Sem "id": o wrangler cria o namespace no 1º deploy
+  "kv_namespaces": [{ "binding": "NEXT_INC_CACHE_KV" }],
+  // Otimização do next/image (Cloudflare Images; plano grátis com limite mensal)
+  "images": {
+    "binding": "IMAGES"
+  },
+  // Domínio próprio; www redireciona para o domínio sem www (src/proxy.ts)
+  "routes": [
+    { "pattern": "viniciusvilanova.com", "custom_domain": true },
+    { "pattern": "www.viniciusvilanova.com", "custom_domain": true }
+  ],
+  "workers_dev": false,
+  "preview_urls": false,
+  // Keep-alive do Supabase (plano grátis pausa após 7 dias sem uso): segunda e quinta, 12h UTC
+  "triggers": {
+    "crons": ["0 12 * * 1,4"]
+  },
+  "observability": {
+    "enabled": true
+  },
+  // Sem telemetria do wrangler
+  "send_metrics": false
+  // Secrets (fora do git, via `npx wrangler secret put <NOME>`):
+  //   SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY → usados pelo cron de keep-alive
+  // ADMIN_ENABLED fica desligado: o admin só entra no ar com a autenticação real
+}

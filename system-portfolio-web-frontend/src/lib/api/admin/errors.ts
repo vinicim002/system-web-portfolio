@@ -1,6 +1,13 @@
-export type AdminServiceErrorCode = "not_found" | "slug_taken";
+export type AdminServiceErrorCode =
+  | "not_found"
+  | "slug_taken"
+  | "invalid_credentials"
+  | "invalid_code"
+  | "rate_limited"
+  | "not_admin"
+  | "session_expired";
 
-// Erro dos serviços do admin; as telas traduzem o `code` (admin.errors.*)
+// Erro dos serviços do admin; as telas traduzem o `code` para uma mensagem em messages/pt.json
 export class AdminServiceError extends Error {
   readonly code: AdminServiceErrorCode;
 

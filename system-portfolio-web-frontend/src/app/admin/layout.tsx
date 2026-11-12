@@ -3,7 +3,9 @@ import { NextIntlClientProvider } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 import { GeistMono } from "geist/font/mono";
 import { GeistSans } from "geist/font/sans";
+import { AdminQueryProvider } from "@/components/admin/providers/AdminQueryProvider";
 import { Providers } from "@/components/providers/Providers";
+import { Toaster } from "@/components/ui/sonner";
 import messages from "../../../messages/pt.json";
 import "../globals.css";
 
@@ -30,7 +32,12 @@ export default function AdminRootLayout({ children }: { children: React.ReactNod
       {/* suppressHydrationWarning: extensões do navegador injetam atributos no body */}
       <body className="min-h-dvh" suppressHydrationWarning>
         <NextIntlClientProvider locale="pt" messages={adminMessages} timeZone="America/Sao_Paulo">
-          <Providers>{children}</Providers>
+          <Providers>
+            <AdminQueryProvider>
+              {children}
+              <Toaster position="bottom-right" richColors={false} />
+            </AdminQueryProvider>
+          </Providers>
         </NextIntlClientProvider>
       </body>
     </html>

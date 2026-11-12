@@ -1,10 +1,14 @@
 import { FolderKanban, Plus } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
+import { SampleDataNotice } from "@/components/admin/layout/SampleDataNotice";
 import { PageHeader } from "@/components/admin/shared/PageHeader";
 import { SystemsGrid } from "@/components/admin/systems/SystemsGrid";
 import { Button } from "@/components/ui/button";
 import messages from "../../../../messages/pt.json";
+
+// Só aparece depois do login (AuthGate): fora da validação de navegação instantânea do Next
+export const instant = false;
 
 const t = messages.admin.home;
 
@@ -20,6 +24,7 @@ export default function AdminHomePage() {
         <h2 id="home-systems" className="text-lg font-bold">
           {t.systemsTitle}
         </h2>
+        <SampleDataNotice />
         <SystemsGrid />
       </section>
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { ExternalLink, FolderKanban, LayoutDashboard, Server } from "lucide-react";
+import { ExternalLink, FolderKanban, LayoutDashboard, Server, ShieldCheck } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { Suspense } from "react";
 import { useTranslations } from "next-intl";
@@ -11,6 +11,7 @@ const items = [
   { href: "/admin", key: "home", icon: LayoutDashboard, exact: true },
   { href: "/admin/projetos", key: "projects", icon: FolderKanban, exact: false },
   { href: "/admin/sistemas", key: "systems", icon: Server, exact: false },
+  { href: "/admin/seguranca", key: "security", icon: ShieldCheck, exact: false },
 ] as const;
 
 const linkClass =

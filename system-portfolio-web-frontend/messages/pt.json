@@ -258,7 +258,7 @@
       "title": "Admin · Vinicius Vila Nova",
       "description": "Área privada para gerenciar o portfólio e acompanhar os sistemas."
     },
-    "sampleNotice": "Dados de exemplo: nada é salvo e tudo volta ao início ao recarregar a página.",
+    "sampleNotice": "Dados de exemplo: os números dos sistemas ainda não são reais.",
     "common": {
       "save": "Salvar",
       "cancel": "Cancelar",
@@ -275,8 +275,7 @@
       "email": "E-mail",
       "emailPlaceholder": "voce@exemplo.com",
       "password": "Senha",
-      "submit": "Entrar",
-      "visualOnly": "Login só visual nesta etapa: nada é verificado nem guardado. Clique em Entrar para ver as telas."
+      "submit": "Entrar"
     },
     "nav": {
       "label": "Menu do admin",
@@ -284,7 +283,8 @@
       "projects": "Projetos",
       "systems": "Sistemas",
       "viewSite": "Ver site",
-      "newTab": "(abre em nova aba)"
+      "newTab": "(abre em nova aba)",
+      "security": "Segurança"
     },
     "shell": {
       "brand": "admin",
@@ -505,6 +505,53 @@
       "tooMany": "Itens demais.",
       "integer": "Use um número inteiro.",
       "minZero": "Use 0 ou um número maior."
+    },
+    "auth": {
+      "signIn": "Entrar",
+      "signingIn": "Entrando…",
+      "checking": "Verificando o acesso…",
+      "enrollTitle": "Proteja o acesso com um segundo fator",
+      "enrollIntro": "Abra o seu aplicativo autenticador (Google Authenticator, Microsoft Authenticator, Authy ou 1Password), adicione uma conta e leia o QR code.",
+      "factorName": "Nome deste aparelho",
+      "factorNamePlaceholder": "celular",
+      "startEnroll": "Gerar QR code",
+      "qrAlt": "QR code para cadastrar o admin no aplicativo autenticador",
+      "manualCode": "Não consegue ler? Digite este código no aplicativo:",
+      "copy": "Copiar código",
+      "copied": "Código copiado.",
+      "enrollConfirm": "Digite o código de 6 dígitos que o aplicativo mostra para confirmar.",
+      "verifyTitle": "Código do aplicativo",
+      "verifyIntro": "Digite o código de 6 dígitos do seu aplicativo autenticador.",
+      "code": "Código de 6 dígitos",
+      "confirm": "Confirmar",
+      "confirming": "Confirmando…",
+      "useOtherAccount": "Usar outra conta",
+      "signOut": "Sair",
+      "signedOut": "Você saiu do admin.",
+      "notAdmin": "Esta conta não tem acesso ao admin.",
+      "errors": {
+        "invalid_credentials": "E-mail ou senha inválidos.",
+        "invalid_code": "Código inválido ou vencido. Confira se a hora do celular está automática e tente de novo.",
+        "rate_limited": "Muitas tentativas. Tente novamente em alguns minutos.",
+        "session_expired": "Sua sessão terminou. Entre de novo para salvar.",
+        "generic": "Não foi possível concluir. Verifique a conexão e tente de novo."
+      },
+      "sessionExpiredHint": "Entre de novo numa nova aba. Quando voltar aqui, o que você digitou continua na tela para salvar.",
+      "signInNewTab": "Entrar em nova aba",
+      "goToLogin": "Ir para o login (descarta o que não foi salvo)"
+    },
+    "security": {
+      "title": "Segurança",
+      "subtitle": "Aplicativos autenticadores que dão acesso ao admin.",
+      "factorsTitle": "Fatores cadastrados",
+      "addedOn": "Cadastrado em {date}",
+      "addFactor": "Cadastrar outro aparelho",
+      "addFactorHint": "Use outro celular ou um gerenciador de senhas, para não perder o acesso se perder este aparelho.",
+      "added": "Novo fator cadastrado.",
+      "reminder": "Você tem só um aparelho como segundo fator. Cadastre outro para não perder o acesso.",
+      "reminderAction": "Cadastrar agora",
+      "recoveryTitle": "Se perder todos os aparelhos",
+      "recoveryText": "No painel do Supabase, abra Authentication → Users, escolha a sua conta e remova o fator em MFA factors. No próximo login o admin pede um novo cadastro."
     }
   }
 }

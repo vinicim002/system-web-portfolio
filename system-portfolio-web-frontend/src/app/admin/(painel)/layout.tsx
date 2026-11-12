@@ -1,13 +1,17 @@
+import { Suspense } from "react";
+import { AuthGate } from "@/components/admin/auth/AuthGate";
 import { AdminShell } from "@/components/admin/layout/AdminShell";
-import { AdminQueryProvider } from "@/components/admin/providers/AdminQueryProvider";
-import { Toaster } from "@/components/ui/sonner";
 
-// Moldura das telas do admin (tudo menos o login)
+// Moldura das telas do admin (tudo menos o login), só com acesso completo (senha + código)
 export default function AdminPanelLayout({ children }: { children: React.ReactNode }) {
   return (
-    <AdminQueryProvider>
-      <AdminShell>{children}</AdminShell>
-      <Toaster position="bottom-right" richColors={false} />
-    </AdminQueryProvider>
+    <>
+      {/* O guarda lê o endereço atual (usePathname/useSearchParams), que só existe na requisição */}
+      <Suspense>
+        <AuthGate>
+          <AdminShell>{children}</AdminShell>
+        </AuthGate>
+      </Suspense>
+    </>
   );
 }

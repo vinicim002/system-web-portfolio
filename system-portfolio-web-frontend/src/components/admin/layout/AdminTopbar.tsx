@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { AdminBrand } from "./AdminBrand";
 import { AdminThemeToggle } from "./AdminThemeToggle";
+import { SignOutButton } from "./SignOutButton";
 
 type AdminTopbarProps = {
   onOpenMenu: () => void;
@@ -29,8 +30,9 @@ export function AdminTopbar({ onOpenMenu }: AdminTopbarProps) {
       <div className="lg:hidden">
         <AdminBrand label={t("brand")} />
       </div>
-      <div className="ml-auto">
+      <div className="ml-auto flex items-center gap-1">
         <AdminThemeToggle />
+        <SignOutButton />
       </div>
     </header>
   );

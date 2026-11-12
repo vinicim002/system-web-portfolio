@@ -1,14 +1,13 @@
 import type { Metadata } from "next";
-import { LoginForm } from "@/components/admin/auth/LoginForm";
+import { Suspense } from "react";
+import { LoginFlow } from "@/components/admin/auth/LoginFlow";
 import { AdminBrand } from "@/components/admin/layout/AdminBrand";
 import { AdminThemeToggle } from "@/components/admin/layout/AdminThemeToggle";
 import messages from "../../../../../messages/pt.json";
 
-const t = messages.admin.login;
+export const metadata: Metadata = { title: messages.admin.login.title };
 
-export const metadata: Metadata = { title: t.title };
-
-// Tela de login sem moldura do admin (grupo "auth")
+// Login do admin em etapas (senha, segundo fator), sem a moldura do painel
 export default function AdminLoginPage() {
   return (
     <main className="flex min-h-dvh flex-col items-center justify-center bg-background px-4 py-10">
@@ -18,9 +17,10 @@ export default function AdminLoginPage() {
           <AdminThemeToggle />
         </div>
         <div className="rounded-3xl border border-border bg-card p-6 shadow-lg shadow-black/5 sm:p-8">
-          <h1 className="text-2xl font-bold tracking-tight">{t.title}</h1>
-          <p className="mt-1 mb-6 text-sm text-muted-foreground">{t.subtitle}</p>
-          <LoginForm />
+          {/* useSearchParams (?voltar=) só existe na requisição */}
+          <Suspense>
+            <LoginFlow />
+          </Suspense>
         </div>
       </div>
     </main>

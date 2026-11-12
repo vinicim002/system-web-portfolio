@@ -63,3 +63,24 @@ export type MonitoredSystem = {
 };
 
 export type { ProjectRow };
+
+// Etapa do acesso ao admin (spec 002, contracts/servicos.md)
+export type AuthStatus =
+  | { step: "signed_out" }
+  | { step: "not_admin" }
+  | { step: "enroll" }
+  | { step: "verify" }
+  | { step: "ready"; factorCount: number };
+
+// Aplicativo autenticador cadastrado (segundo fator)
+export type AdminFactor = {
+  id: string;
+  friendlyName: string;
+  createdAt: string;
+};
+
+export type FactorEnrollment = {
+  factorId: string;
+  qrCode: string;
+  secret: string;
+};

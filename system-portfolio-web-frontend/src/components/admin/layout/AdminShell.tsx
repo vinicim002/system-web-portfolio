@@ -9,7 +9,8 @@ import { LeaveGuardProvider } from "@/components/admin/shared/LeaveGuard";
 import { AdminBrand } from "./AdminBrand";
 import { AdminNav } from "./AdminNav";
 import { AdminTopbar } from "./AdminTopbar";
-import { SampleDataNotice } from "./SampleDataNotice";
+import { SecondFactorReminder } from "./SecondFactorReminder";
+import { SignOutButton } from "./SignOutButton";
 
 // Moldura do admin: menu lateral no computador, gaveta no celular (RF-003, RF-023)
 export function AdminShell({ children }: { children: React.ReactNode }) {
@@ -47,13 +48,16 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
               </SheetClose>
             </div>
             <AdminNav onNavigate={() => setMenuOpen(false)} />
+            <div className="mt-auto border-t border-border pt-2">
+              <SignOutButton variant="full" className="w-full" />
+            </div>
           </SheetContent>
         </Sheet>
 
         <div className="flex min-w-0 flex-col">
-          <SampleDataNotice />
           <AdminTopbar onOpenMenu={() => setMenuOpen(true)} />
           <main id="admin-content" className="mx-auto w-full max-w-6xl flex-1 px-4 py-8 sm:px-6 lg:py-10">
+            <SecondFactorReminder />
             {children}
           </main>
         </div>

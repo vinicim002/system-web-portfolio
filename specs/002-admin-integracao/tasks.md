@@ -150,8 +150,8 @@ no Storage local não sobra nada de `projects/<id>/`.
 **Teste independente**: abrir `https://viniciusvilanova.com/admin/login`, entrar com senha e código e
 fazer uma alteração que aparece no site em até 1 minuto.
 
-- [ ] T044 [US5] 🔒 Com o autor: primeiro acesso no projeto real pelo `npm run dev` (cadastro do fator no app autenticador dele e, de preferência, um segundo fator), confirmando a História 1 com a conta real
-- [ ] T045 [US5] Adicionar `"vars": { "ADMIN_ENABLED": "true" }` em `F/wrangler.jsonc`
+- [X] T044 [US5] 🔒 Com o autor: primeiro acesso no projeto real pelo `npm run dev` (cadastro do fator no app autenticador dele e, de preferência, um segundo fator), confirmando a História 1 com a conta real
+- [X] T045 [US5] Adicionar `"vars": { "ADMIN_ENABLED": "true" }` em `F/wrangler.jsonc`
 - [ ] T046 [US5] 🔒 Publicar (`npm run deploy` em `F/`) e conferir em produção: login com código, despublicar/publicar e uma edição aparecendo no site em até 1 minuto (CS-004, também no inglês), `noindex` nas telas do admin e `/admin/projetos` sem sessão levando ao login
 
 ---

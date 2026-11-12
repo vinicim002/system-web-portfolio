@@ -38,9 +38,12 @@
   "observability": {
     "enabled": true
   },
+  // Admin liberado em produção (spec 002, História 5): login real com segundo fator (TOTP)
+  "vars": {
+    "ADMIN_ENABLED": "true"
+  },
   // Sem telemetria do wrangler
   "send_metrics": false
   // Secrets (fora do git, via `npx wrangler secret put <NOME>`):
   //   SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY → usados pelo cron de keep-alive
-  // ADMIN_ENABLED fica desligado: o admin só entra no ar com a autenticação real
 }

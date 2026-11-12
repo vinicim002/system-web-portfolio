@@ -43,8 +43,10 @@ export function useDeleteProject() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (id: string) => adminProjects.remove(id),
+    // O item não é removido do cache aqui para a edição não piscar "não encontrado"
+    // antes de voltar para a lista; ele é buscado de novo ao abrir o id outra vez
     onSuccess: (_, id) => {
-      queryClient.removeQueries({ queryKey: projectKeys.item(id) });
+      queryClient.invalidateQueries({ queryKey: projectKeys.item(id), refetchType: "none" });
       return queryClient.invalidateQueries({ queryKey: projectKeys.lists() });
     },
   });

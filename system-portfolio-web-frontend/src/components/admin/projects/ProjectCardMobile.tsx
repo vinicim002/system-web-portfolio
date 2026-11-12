@@ -7,7 +7,12 @@ import type { ProjectRow } from "@/types/project";
 import { FeaturedMark, PublicationBadge, StatusBadge, useCategoryLabel } from "./ProjectBadges";
 
 // Mesmas informações da tabela, em cartão, para o celular (RF-023)
-export function ProjectCardMobile({ project }: { project: ProjectRow }) {
+type ProjectCardMobileProps = {
+  project: ProjectRow;
+  actions: React.ReactNode;
+};
+
+export function ProjectCardMobile({ project, actions }: ProjectCardMobileProps) {
   const t = useTranslations("admin.projects.list");
   const categoryLabel = useCategoryLabel();
   const editHref = useEditHref();
@@ -37,6 +42,7 @@ export function ProjectCardMobile({ project }: { project: ProjectRow }) {
         <PublicationBadge published={project.published} />
         <FeaturedMark featured={project.featured} />
       </div>
+      <div className="border-t border-border pt-2">{actions}</div>
     </article>
   );
 }

@@ -340,7 +340,8 @@
           "category": "Categoria",
           "status": "Status",
           "publication": "Publicação",
-          "featured": "Destaque"
+          "featured": "Destaque",
+          "actions": "Ações"
         },
         "edit": "Editar {title}",
         "noResults": "Nenhum projeto encontrado",
@@ -410,6 +411,29 @@
           "draft": "rascunho"
         },
         "characters": "{count}/{max}"
+      },
+      "actions": {
+        "publish": "Publicar {title}",
+        "published": "Projeto publicado: {title}.",
+        "unpublished": "Projeto em rascunho: {title}.",
+        "feature": "Marcar {title} como destaque",
+        "unfeature": "Tirar {title} dos destaques",
+        "featured": "Destaque ligado: {title}.",
+        "unfeatured": "Destaque desligado: {title}.",
+        "moveUp": "Subir {title} na ordem",
+        "moveDown": "Descer {title} na ordem",
+        "moved": "Ordem atualizada.",
+        "more": "Mais ações para {title}",
+        "edit": "Editar",
+        "delete": "Excluir",
+        "deleteProject": "Excluir projeto",
+        "deleteTitle": "Excluir “{title}”?",
+        "deleteDescription": "O projeto some da lista. Nesta etapa a exclusão é só de exemplo e volta ao recarregar a página.",
+        "deleteConfirm": "Excluir",
+        "deleteCancel": "Cancelar",
+        "deleted": "Projeto excluído: {title}.",
+        "error": "Não foi possível concluir a ação.",
+        "filteredOrderHint": "Com filtros ativos, subir e descer troca de lugar com o vizinho na lista completa."
       }
     },
     "systems": {

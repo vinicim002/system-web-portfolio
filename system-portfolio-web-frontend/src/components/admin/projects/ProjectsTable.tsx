@@ -8,7 +8,12 @@ import type { ProjectRow } from "@/types/project";
 import { FeaturedMark, PublicationBadge, StatusBadge, useCategoryLabel } from "./ProjectBadges";
 
 // Lista de projetos no computador (RF-009)
-export function ProjectsTable({ projects }: { projects: ProjectRow[] }) {
+type ProjectsTableProps = {
+  projects: ProjectRow[];
+  renderActions: (project: ProjectRow) => React.ReactNode;
+};
+
+export function ProjectsTable({ projects, renderActions }: ProjectsTableProps) {
   const t = useTranslations("admin.projects.list");
   const categoryLabel = useCategoryLabel();
   const editHref = useEditHref();
@@ -25,6 +30,7 @@ export function ProjectsTable({ projects }: { projects: ProjectRow[] }) {
             <TableHead>{t("columns.status")}</TableHead>
             <TableHead>{t("columns.publication")}</TableHead>
             <TableHead>{t("columns.featured")}</TableHead>
+            <TableHead className="pr-4 text-right">{t("columns.actions")}</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -50,6 +56,9 @@ export function ProjectsTable({ projects }: { projects: ProjectRow[] }) {
               </TableCell>
               <TableCell>
                 <FeaturedMark featured={project.featured} />
+              </TableCell>
+              <TableCell className="pr-4">
+                <div className="flex justify-end">{renderActions(project)}</div>
               </TableCell>
             </TableRow>
           ))}

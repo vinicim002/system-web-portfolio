@@ -1,7 +1,8 @@
 "use client";
 
-import { ArrowLeft } from "lucide-react";
-import { useParams } from "next/navigation";
+import { ArrowLeft, Trash2 } from "lucide-react";
+import { useParams, useRouter } from "next/navigation";
+import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { GuardedLink } from "@/components/admin/shared/LeaveGuard";
 import { NotFoundState } from "@/components/admin/shared/NotFoundState";
@@ -10,16 +11,14 @@ import { Button } from "@/components/ui/button";
 import { useAdminProject } from "@/hooks/admin/use-admin-projects";
 import { useBackToListHref } from "@/hooks/admin/use-project-filters";
 import { toDraft } from "@/lib/project-draft";
+import { DeleteProjectDialog } from "./DeleteProjectDialog";
 import { ProjectForm } from "./ProjectForm";
 
-type ProjectEditorProps = {
-  // Ações extras no rodapé (ex.: excluir), recebem o id e o título
-  renderFooterExtra?: (project: { id: string; title: string; backHref: string }) => React.ReactNode;
-};
-
 // Edição: carrega o projeto pelo id da URL; id inexistente mostra "não encontrado" (RF-024)
-export function ProjectEditor({ renderFooterExtra }: ProjectEditorProps) {
+export function ProjectEditor() {
   const t = useTranslations("admin");
+  const router = useRouter();
+  const [confirmDelete, setConfirmDelete] = useState(false);
   const { id } = useParams<{ id: string }>();
   const backHref = useBackToListHref();
   const { data: project, isPending } = useAdminProject(id);
@@ -54,7 +53,23 @@ export function ProjectEditor({ renderFooterExtra }: ProjectEditorProps) {
         projectId={project.id}
         initial={toDraft(project)}
         backHref={backHref}
-        footerExtra={renderFooterExtra?.({ id: project.id, title: project.title_pt, backHref })}
+        footerExtra={
+          <Button
+            type="button"
+            variant="ghost"
+            size="lg"
+            className="px-3 text-destructive"
+            onClick={() => setConfirmDelete(true)}
+          >
+            <Trash2 aria-hidden />
+            {t("projects.actions.deleteProject")}
+          </Button>
+        }
+      />
+      <DeleteProjectDialog
+        project={confirmDelete ? { id: project.id, title: project.title_pt } : null}
+        onOpenChange={setConfirmDelete}
+        onDeleted={() => router.push(backHref)}
       />
     </>
   );

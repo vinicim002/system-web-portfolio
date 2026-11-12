@@ -138,10 +138,10 @@ editar um projeto existente; tentar sair com alterações não salvas.
 **Teste independente**: despublicar e publicar, mover um projeto e excluir um projeto (confirmando e
 cancelando), conferindo cada resultado na lista; recarregar e ver o estado inicial.
 
-- [ ] T044 [P] [US5] Criar `F/src/components/admin/projects/DeleteProjectDialog.tsx` (`AlertDialog` mostrando o título; confirma com `useDeleteProject` e toast) (RF-019)
-- [ ] T045 [US5] Adicionar ações rápidas em `F/src/components/admin/projects/ProjectsTable.tsx` e `F/src/components/admin/projects/ProjectCardMobile.tsx`: `Switch` de publicado (`useTogglePublished`), alternar destaque (`useToggleFeatured`), subir e descer de qualquer projeto, destaque ou não (`useMoveProject`, desativados no topo e no fim) e menu com editar e excluir; cada ação com toast (RF-018, RF-020)
-- [ ] T046 [US5] Adicionar o botão "Excluir projeto" com `DeleteProjectDialog` no rodapé de `F/src/components/admin/projects/ProjectForm.tsx` (só na edição), voltando para a lista após excluir
-- [ ] T047 [US5] Adicionar a `F/messages/pt.json` as chaves `admin.projects.actions.*`
+- [X] T044 [P] [US5] Criar `F/src/components/admin/projects/DeleteProjectDialog.tsx` (`AlertDialog` mostrando o título; confirma com `useDeleteProject` e toast) (RF-019)
+- [X] T045 [US5] Adicionar ações rápidas em `F/src/components/admin/projects/ProjectsTable.tsx` e `F/src/components/admin/projects/ProjectCardMobile.tsx`: `Switch` de publicado (`useTogglePublished`), alternar destaque (`useToggleFeatured`), subir e descer de qualquer projeto, destaque ou não (`useMoveProject`, desativados no topo e no fim) e menu com editar e excluir; cada ação com toast (RF-018, RF-020)
+- [X] T046 [US5] Adicionar o botão "Excluir projeto" com `DeleteProjectDialog` no rodapé de `F/src/components/admin/projects/ProjectForm.tsx` (só na edição), voltando para a lista após excluir
+- [X] T047 [US5] Adicionar a `F/messages/pt.json` as chaves `admin.projects.actions.*`
 
 **Ponto de controle**: todas as histórias funcionam. Conferir: tsc, lint e build sem erros; a tela nos temas claro e escuro e em 390×844 (fluxo de trabalho da constituição).
 

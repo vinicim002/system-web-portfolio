@@ -10,8 +10,8 @@
     "directory": ".open-next/assets",
     "binding": "ASSETS"
   },
-  // Cache do Next (open-next.config.ts). Sem "id": o wrangler cria o namespace no 1º deploy
-  "kv_namespaces": [{ "binding": "NEXT_INC_CACHE_KV" }],
+  // Cache do Next (open-next.config.ts); namespace "system-portfolio-web-cache"
+  "kv_namespaces": [{ "binding": "NEXT_INC_CACHE_KV", "id": "0d3aa9c37f8b4586b43bae65763474c5" }],
   // Otimização do next/image (Cloudflare Images; plano grátis com limite mensal)
   "images": {
     "binding": "IMAGES"

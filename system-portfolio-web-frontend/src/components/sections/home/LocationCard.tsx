@@ -4,19 +4,39 @@ import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
 import { BentoCard } from "./BentoCard";
 import { LocalTime } from "./LocalTime";
+import { RJ_CAPITAL, RJ_DOTS_PATH, RJ_DOT_STEP, RJ_VIEWBOX } from "./rj-dots";
 
 export async function LocationCard({ className }: { className?: string }) {
   const t = await getTranslations("home.location");
 
   return (
-    <BentoCard waves className={cn("min-h-36", className)} aria-label={t("title")}>
-      <span
+    <BentoCard className={cn("min-h-36", className)} aria-label={t("title")}>
+      {/* Estado do Rio de Janeiro em pontos, com a capital marcada */}
+      <div
         aria-hidden
-        className="absolute top-1/2 right-[22%] flex size-3 -translate-y-1/2"
+        className="absolute top-4 right-5 h-[60%] max-w-[62%] sm:h-[78%]"
+        style={{ aspectRatio: `${RJ_VIEWBOX.width} / ${RJ_VIEWBOX.height}` }}
       >
-        <span className="absolute inline-flex size-full animate-ping rounded-full bg-secondary opacity-60 motion-reduce:animate-none" />
-        <span className="relative inline-flex size-3 rounded-full bg-secondary" />
-      </span>
+        <svg
+          viewBox={`0 0 ${RJ_VIEWBOX.width} ${RJ_VIEWBOX.height}`}
+          className="size-full text-muted-foreground/40"
+          fill="none"
+        >
+          <path
+            d={RJ_DOTS_PATH}
+            stroke="currentColor"
+            strokeWidth={RJ_DOT_STEP * 0.62}
+            strokeLinecap="round"
+          />
+        </svg>
+        <span
+          className="absolute flex size-3 -translate-x-1/2 -translate-y-1/2"
+          style={{ left: `${RJ_CAPITAL.x}%`, top: `${RJ_CAPITAL.y}%` }}
+        >
+          <span className="absolute inline-flex size-full animate-ping rounded-full bg-secondary opacity-60 motion-reduce:animate-none" />
+          <span className="relative inline-flex size-3 rounded-full bg-secondary" />
+        </span>
+      </div>
 
       <div className="relative flex h-full flex-col justify-end gap-1">
         <p className="flex items-center gap-1.5 text-sm font-medium">

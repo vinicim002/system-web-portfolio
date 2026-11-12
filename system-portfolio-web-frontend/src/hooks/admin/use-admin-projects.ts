@@ -1,6 +1,7 @@
 "use client";
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useCallback } from "react";
 import { adminProjects } from "@/lib/api/admin/projects";
 import type { MoveDirection, ProjectDraft, ProjectFilters } from "@/types/admin";
 
@@ -75,4 +76,9 @@ export function useMoveProject() {
     mutationFn: ({ id, direction }: MoveInput) => adminProjects.move(id, direction),
     onSuccess: () => queryClient.invalidateQueries({ queryKey: projectKeys.lists() }),
   });
+}
+
+// Checagem de slug único para dar retorno antes de salvar (ignora o próprio projeto)
+export function useSlugAvailability() {
+  return useCallback((slug: string, ignoreId?: string) => adminProjects.isSlugAvailable(slug, ignoreId), []);
 }

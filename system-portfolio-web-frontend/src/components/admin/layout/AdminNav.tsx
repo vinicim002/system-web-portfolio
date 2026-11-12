@@ -1,10 +1,10 @@
 "use client";
 
 import { ExternalLink, FolderKanban, LayoutDashboard, Server } from "lucide-react";
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Suspense } from "react";
 import { useTranslations } from "next-intl";
+import { GuardedLink } from "@/components/admin/shared/LeaveGuard";
 import { cn } from "@/lib/utils";
 
 const items = [
@@ -47,7 +47,7 @@ function NavList({ onNavigate, pathname }: AdminNavProps & { pathname: string | 
           pathname !== null &&
           (exact ? pathname === href : pathname === href || pathname.startsWith(`${href}/`));
         return (
-          <Link
+          <GuardedLink
             key={href}
             href={href}
             onClick={onNavigate}
@@ -56,7 +56,7 @@ function NavList({ onNavigate, pathname }: AdminNavProps & { pathname: string | 
           >
             <Icon className={cn("size-4", isActive && "text-accent-text")} aria-hidden />
             {t(key)}
-          </Link>
+          </GuardedLink>
         );
       })}
 

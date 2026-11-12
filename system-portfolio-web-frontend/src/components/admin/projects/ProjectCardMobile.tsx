@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useTranslations } from "next-intl";
+import { useEditHref } from "@/hooks/admin/use-project-filters";
 import type { ProjectRow } from "@/types/project";
 import { FeaturedMark, PublicationBadge, StatusBadge, useCategoryLabel } from "./ProjectBadges";
 
@@ -9,6 +10,7 @@ import { FeaturedMark, PublicationBadge, StatusBadge, useCategoryLabel } from ".
 export function ProjectCardMobile({ project }: { project: ProjectRow }) {
   const t = useTranslations("admin.projects.list");
   const categoryLabel = useCategoryLabel();
+  const editHref = useEditHref();
 
   return (
     <article className="flex flex-col gap-3 rounded-2xl border border-border bg-card p-4">
@@ -21,7 +23,7 @@ export function ProjectCardMobile({ project }: { project: ProjectRow }) {
         </span>
         <div className="min-w-0 flex-1">
           <Link
-            href={`/admin/projetos/${project.id}`}
+            href={editHref(project.id)}
             title={t("edit", { title: project.title_pt })}
             className="font-medium outline-none hover:text-accent-text focus-visible:underline"
           >

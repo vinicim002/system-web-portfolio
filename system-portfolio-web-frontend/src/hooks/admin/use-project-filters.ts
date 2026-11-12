@@ -41,3 +41,19 @@ export function useProjectFilters() {
 
   return { filters, setFilters, hasFilters, categories, statuses };
 }
+
+// Link de edição que leva os filtros atuais, para o "voltar" manter a busca (?lista=...)
+export function useEditHref() {
+  const searchParams = useSearchParams();
+  const list = searchParams.toString();
+  return useCallback(
+    (id: string) => `/admin/projetos/${id}${list ? `?lista=${encodeURIComponent(list)}` : ""}`,
+    [list],
+  );
+}
+
+// Volta para a lista com os filtros que estavam ativos ao abrir a edição
+export function useBackToListHref() {
+  const list = useSearchParams().get("lista");
+  return list ? `/admin/projetos?${list}` : "/admin/projetos";
+}

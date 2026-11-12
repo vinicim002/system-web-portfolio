@@ -1,10 +1,12 @@
+"use client";
+
 import { CodeXml } from "lucide-react";
-import Link from "next/link";
+import { GuardedLink } from "@/components/admin/shared/LeaveGuard";
 
 // Marca do admin no mesmo estilo do header do site
 export function AdminBrand({ label }: { label: string }) {
   return (
-    <Link
+    <GuardedLink
       href="/admin"
       className="flex items-center gap-3 rounded-xl p-1 pr-3 outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
     >
@@ -15,6 +17,6 @@ export function AdminBrand({ label }: { label: string }) {
         {label}
         <span className="text-accent-text">.</span>
       </span>
-    </Link>
+    </GuardedLink>
   );
 }

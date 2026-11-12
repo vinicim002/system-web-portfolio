@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useTranslations } from "next-intl";
+import { useEditHref } from "@/hooks/admin/use-project-filters";
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import type { ProjectRow } from "@/types/project";
 import { FeaturedMark, PublicationBadge, StatusBadge, useCategoryLabel } from "./ProjectBadges";
@@ -10,6 +11,7 @@ import { FeaturedMark, PublicationBadge, StatusBadge, useCategoryLabel } from ".
 export function ProjectsTable({ projects }: { projects: ProjectRow[] }) {
   const t = useTranslations("admin.projects.list");
   const categoryLabel = useCategoryLabel();
+  const editHref = useEditHref();
 
   return (
     <div className="overflow-hidden rounded-2xl border border-border bg-card">
@@ -31,7 +33,7 @@ export function ProjectsTable({ projects }: { projects: ProjectRow[] }) {
               <TableCell className="pl-4 font-mono text-muted-foreground tabular-nums">{project.sort_order}</TableCell>
               <TableCell>
                 <Link
-                  href={`/admin/projetos/${project.id}`}
+                  href={editHref(project.id)}
                   title={t("edit", { title: project.title_pt })}
                   className="font-medium outline-none hover:text-accent-text focus-visible:underline"
                 >

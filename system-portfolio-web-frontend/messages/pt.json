@@ -348,6 +348,68 @@
         "empty": "Nenhum projeto ainda",
         "emptyHint": "Crie o primeiro projeto do portfólio.",
         "loadError": "Não foi possível carregar os projetos."
+      },
+      "form": {
+        "newTitle": "Novo projeto",
+        "newSubtitle": "Preencha os campos e salve. O projeto nasce como rascunho.",
+        "editTitle": "Editar projeto",
+        "backToList": "Voltar para Projetos",
+        "notFound": "Projeto não encontrado",
+        "notFoundHint": "Este projeto não existe ou já foi excluído.",
+        "save": "Salvar projeto",
+        "saving": "Salvando…",
+        "cancel": "Cancelar",
+        "created": "Projeto criado como {state}.",
+        "updated": "Alterações salvas.",
+        "saveError": "Não foi possível salvar. Confira os campos.",
+        "fixErrors": "Corrija os campos marcados antes de salvar.",
+        "sections": {
+          "identity": "Identificação",
+          "identityHint": "O endereço curto forma o link do projeto no site.",
+          "texts": "Textos",
+          "textsHint": "Título e resumo aparecem nos cards; o conteúdo forma a página do projeto.",
+          "classification": "Classificação",
+          "media": "Imagens",
+          "links": "Links",
+          "publication": "Publicação"
+        },
+        "fields": {
+          "slug": "Endereço curto (slug)",
+          "slugHint": "Letras minúsculas, números e hífens. Ex.: rookhub",
+          "slugSuggested": "Sugerido a partir do título em português.",
+          "slugPreview": "Link no site: /pt/projetos/{slug}",
+          "title_pt": "Título (português)",
+          "title_en": "Título (inglês)",
+          "summary_pt": "Resumo (português)",
+          "summary_en": "Resumo (inglês)",
+          "content_pt": "Conteúdo (português)",
+          "content_en": "Conteúdo (inglês)",
+          "category": "Categoria",
+          "noCategory": "Sem categoria",
+          "status": "Status",
+          "tech_stack": "Stack",
+          "techStackHint": "Digite e aperte Enter ou vírgula. Até 15 itens.",
+          "techStackPlaceholder": "Ex.: React",
+          "techStackAdd": "Adicionar",
+          "techStackRemove": "Remover {item}",
+          "techStackDuplicate": "{item} já está na lista.",
+          "cover": "Capa",
+          "gallery": "Galeria",
+          "repo_url": "Link do repositório",
+          "demo_url": "Link da demo",
+          "urlPlaceholder": "https://…",
+          "featured": "Destaque",
+          "featuredHint": "Aparece entre os destaques do site.",
+          "published": "Publicado",
+          "publishedHint": "Desligado, o projeto fica como rascunho e não aparece no site.",
+          "sort_order": "Ordem",
+          "sortOrderHint": "Posição na lista e no site (0 é o primeiro)."
+        },
+        "states": {
+          "published": "publicado",
+          "draft": "rascunho"
+        },
+        "characters": "{count}/{max}"
       }
     },
     "systems": {
@@ -378,6 +440,47 @@
       "notFound": "Sistema não encontrado",
       "notFoundHint": "Este sistema não existe ou ainda não tem painel.",
       "loadError": "Não foi possível carregar os sistemas."
+    },
+    "leave": {
+      "title": "Descartar alterações?",
+      "description": "Você tem alterações que ainda não foram salvas. Se sair agora, elas serão perdidas.",
+      "stay": "Continuar editando",
+      "discard": "Descartar e sair"
+    },
+    "markdown": {
+      "write": "Escrever",
+      "preview": "Pré-visualizar",
+      "hint": "Aceita markdown: ## título, **negrito**, - lista, [link](https://…).",
+      "empty": "Nada para pré-visualizar ainda."
+    },
+    "images": {
+      "choose": "Escolher imagem",
+      "change": "Trocar imagem",
+      "add": "Adicionar imagens",
+      "remove": "Remover imagem",
+      "removeAt": "Remover imagem {position}",
+      "moveUp": "Mover imagem {position} para a esquerda",
+      "moveDown": "Mover imagem {position} para a direita",
+      "coverEmpty": "Nenhuma capa escolhida.",
+      "galleryEmpty": "Nenhuma imagem na galeria.",
+      "rules": "Imagens até 5 MB.",
+      "galleryCount": "{count} de {max} imagens",
+      "simulated": "Envio simulado: a imagem fica só neste navegador e não é enviada.",
+      "notImage": "{name} não é uma imagem.",
+      "tooLarge": "{name} passa de 5 MB.",
+      "galleryFull": "A galeria aceita até {max} imagens; {count} ficaram de fora.",
+      "position": "Imagem {position}"
+    },
+    "validation": {
+      "required": "Campo obrigatório.",
+      "tooLong": "Texto maior que o permitido.",
+      "slugFormat": "Use só letras minúsculas, números e hífens, sem hífen no começo, no fim ou repetido.",
+      "slugTaken": "Este endereço curto já é usado por outro projeto.",
+      "invalidUrl": "Informe um endereço completo, começando com http:// ou https://.",
+      "duplicate": "Há itens repetidos.",
+      "tooMany": "Itens demais.",
+      "integer": "Use um número inteiro.",
+      "minZero": "Use 0 ou um número maior."
     }
   }
 }

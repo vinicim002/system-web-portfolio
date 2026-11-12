@@ -9,6 +9,8 @@
 - O site é bilíngue: português (padrão) e inglês, com rotas `/pt/...` e `/en/...`.
 - Nenhum texto de interface pode ficar escrito direto nos componentes: os textos DEVEM
   ficar em `messages/pt.json` e `messages/en.json` (next-intl).
+- A área admin é privada e só em português, fora das rotas com idioma: seus textos ficam
+  no namespace `admin` de `messages/pt.json`, sem versão em `messages/en.json`.
 
 Motivo: requisito de idioma da especificação e público nos dois idiomas.
 
@@ -71,6 +73,23 @@ Motivo: manter a identidade consistente e o site utilizável por qualquer pessoa
 
 Motivo: o portfólio precisa ser encontrado e abrir rápido em qualquer aparelho.
 
+### VII. Telas primeiro na área admin
+
+- A área admin é construída primeiro como front-end: todas as telas (login, lista de
+  projetos, formulário de criar e editar, publicar e despublicar, ordenar destaques e envio
+  de imagens) DEVEM funcionar com dados locais em memória, atrás da camada `src/lib/api/`
+  com implementação local.
+- NÃO é permitido ligar autenticação real, gravação no Supabase, upload no Storage nem
+  invalidação de cache antes de o autor revisar e aprovar as telas.
+- A tela de login PODE existir antes, mas só visual: não autentica, não guarda sessão nem
+  senha e não bloqueia rotas.
+- Depois da revisão, a implementação local é trocada pela integração com o Supabase sem
+  mudar os componentes das telas. Funções que as telas mostrarem ser desnecessárias NÃO são
+  implementadas.
+
+Motivo: ver nas telas o que deve ficar e o que deve sair antes de escrever funções,
+evitando trabalho desnecessário.
+
 ## Restrições do projeto
 
 - Stack decidida: Next.js (App Router) + TypeScript, Tailwind CSS + shadcn/ui, next-intl,
@@ -88,6 +107,9 @@ Motivo: o portfólio precisa ser encontrado e abrir rápido em qualquer aparelho
 - Cada funcionalidade nova segue o Spec Kit: `/speckit-specify` → `/speckit-plan` →
   `/speckit-tasks` → `/speckit-implement`, com os artefatos em `specs/NNN-nome/`.
 - Antes de implementar, a especificação e as regras citadas na tarefa DEVEM ser lidas.
+- Na área admin a ordem é obrigatória (princípio VII): 1) telas com dados locais;
+  2) revisão e aprovação do autor, ajustando o que fica e o que sai; 3) só então a
+  integração com Supabase (Auth, banco, Storage e cache).
 - Commits seguem Conventional Commits (prefixo em inglês, descrição em português) e têm
   um único autor: o dono do repositório. Coautores ou atribuição a ferramentas de IA são
   proibidos. Push só quando o autor pedir.
@@ -106,4 +128,13 @@ Motivo: o portfólio precisa ser encontrado e abrir rápido em qualquer aparelho
 - Todo plano e toda revisão de código DEVEM verificar a conformidade com estes
   princípios.
 
-**Versão**: 1.0.0 | **Ratificada**: 2026-11-11 | **Última emenda**: 2026-11-11
+**Versão**: 1.1.1 | **Ratificada**: 2026-11-11 | **Última emenda**: 2026-11-11
+
+### Emendas
+
+- **1.1.0 (2026-11-11):** adiciona o princípio VII (telas primeiro na área admin) e a ordem
+  correspondente no fluxo de trabalho. Motivo: definir nas telas o que a área admin precisa
+  antes de implementar funções, evitando trabalho desnecessário.
+- **1.1.1 (2026-11-11):** esclarece no princípio I que a área admin é só em português, com
+  textos apenas em `messages/pt.json`. Motivo: alinhar a constituição à especificação do
+  projeto, que define o admin sem i18n.

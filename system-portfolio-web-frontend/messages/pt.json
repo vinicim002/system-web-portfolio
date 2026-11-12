@@ -267,8 +267,7 @@
       "notFound": "Página não encontrada",
       "notFoundHint": "O endereço não existe na área admin.",
       "goHome": "Ir para o Início",
-      "example": "exemplo",
-      "comingInThisDelivery": "Esta tela entra nas próximas histórias desta entrega."
+      "example": "exemplo"
     },
     "login": {
       "title": "Entrar no admin",
@@ -305,7 +304,51 @@
     },
     "projects": {
       "title": "Projetos",
-      "subtitle": "Projetos exibidos no portfólio."
+      "subtitle": "Projetos exibidos no portfólio, na ordem em que aparecem no site.",
+      "new": "Novo projeto",
+      "labels": {
+        "category": {
+          "mobile": "Mobile",
+          "web": "Web",
+          "automation": "Automação",
+          "none": "Sem categoria"
+        },
+        "status": {
+          "production": "Em produção",
+          "mvp": "MVP",
+          "in_progress": "Em evolução",
+          "proposal": "Proposta técnica"
+        },
+        "published": "Publicado",
+        "draft": "Rascunho",
+        "featured": "Destaque",
+        "notFeatured": "Comum"
+      },
+      "list": {
+        "search": "Buscar por título",
+        "searchPlaceholder": "Buscar por título…",
+        "category": "Categoria",
+        "status": "Status",
+        "allCategories": "Todas as categorias",
+        "allStatuses": "Todos os status",
+        "clear": "Limpar filtros",
+        "count": "{count, plural, =0 {Nenhum projeto} one {# projeto} other {# projetos}}",
+        "tableCaption": "Projetos do portfólio",
+        "columns": {
+          "order": "Ordem",
+          "title": "Título",
+          "category": "Categoria",
+          "status": "Status",
+          "publication": "Publicação",
+          "featured": "Destaque"
+        },
+        "edit": "Editar {title}",
+        "noResults": "Nenhum projeto encontrado",
+        "noResultsHint": "Nenhum projeto combina com a busca e os filtros. Limpe os filtros para ver todos.",
+        "empty": "Nenhum projeto ainda",
+        "emptyHint": "Crie o primeiro projeto do portfólio.",
+        "loadError": "Não foi possível carregar os projetos."
+      }
     },
     "systems": {
       "title": "Sistemas",

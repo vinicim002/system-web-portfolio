@@ -101,11 +101,11 @@ que Zona Sul Urgente aparece "em breve" e não abre painel.
 **Teste independente**: abrir `/admin/projetos`, buscar "rook" e "logistica", filtrar Web + Em produção
 e limpar; conferir a mensagem de lista vazia.
 
-- [ ] T031 [P] [US3] Criar `F/src/components/admin/projects/ProjectFilters.tsx`: busca, `Select` de categoria e de status e botão "limpar", lendo e gravando `?q=&categoria=&status=` na URL (RF-010, `contracts/rotas.md`)
-- [ ] T032 [P] [US3] Criar `F/src/components/admin/projects/ProjectsTable.tsx` (computador): colunas título, categoria, status, publicado/rascunho, destaque e ordem; título leva a `/admin/projetos/[id]` (RF-009)
-- [ ] T033 [P] [US3] Criar `F/src/components/admin/projects/ProjectCardMobile.tsx` (celular): as mesmas informações em cartão (RF-023)
-- [ ] T034 [US3] Criar `F/src/app/admin/(painel)/projetos/page.tsx`: lê os filtros dentro de `<Suspense>`, usa `useAdminProjects(filters)`, mostra tabela no computador e cartões no celular, `EmptyState` para busca sem resultado (com "limpar filtros") e para lista vazia (com "novo projeto"), e botão "Novo projeto"
-- [ ] T035 [US3] Adicionar a `F/messages/pt.json` as chaves `admin.projects.list.*` e os rótulos de categoria e status em `admin.projects.labels.*`
+- [X] T031 [P] [US3] Criar `F/src/components/admin/projects/ProjectFilters.tsx`: busca, `Select` de categoria e de status e botão "limpar", lendo e gravando `?q=&categoria=&status=` na URL (RF-010, `contracts/rotas.md`)
+- [X] T032 [P] [US3] Criar `F/src/components/admin/projects/ProjectsTable.tsx` (computador): colunas título, categoria, status, publicado/rascunho, destaque e ordem; título leva a `/admin/projetos/[id]` (RF-009)
+- [X] T033 [P] [US3] Criar `F/src/components/admin/projects/ProjectCardMobile.tsx` (celular): as mesmas informações em cartão (RF-023)
+- [X] T034 [US3] Criar `F/src/app/admin/(painel)/projetos/page.tsx`: lê os filtros dentro de `<Suspense>`, usa `useAdminProjects(filters)`, mostra tabela no computador e cartões no celular, `EmptyState` para busca sem resultado (com "limpar filtros") e para lista vazia (com "novo projeto"), e botão "Novo projeto"
+- [X] T035 [US3] Adicionar a `F/messages/pt.json` as chaves `admin.projects.list.*` e os rótulos de categoria e status em `admin.projects.labels.*`
 
 **Ponto de controle**: histórias 1, 2 e 3 funcionam sozinhas. Conferir: tsc, lint e build sem erros; a tela nos temas claro e escuro e em 390×844 (fluxo de trabalho da constituição).
 

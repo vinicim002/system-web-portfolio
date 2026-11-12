@@ -34,6 +34,9 @@ Motivo: o portfólio representa uma pessoa real; conteúdo falso é um risco pro
   `src/lib/api/`, com tipos definidos em `src/types/`.
 - O backend é apenas o Supabase (Postgres, Auth, Storage, RLS e Edge Functions). NÃO é
   permitido usar API routes ou Server Actions do Next como backend próprio.
+- Exceção única: uma rota do Next que APENAS invalida o cache do site (ex.: `revalidateTag`)
+  não conta como backend próprio, desde que não leia nem grave dados do portfólio e que a
+  autorização seja decidida pelo Supabase com o token do próprio usuário (RLS/`is_admin()`).
 - Lógica que exige segredo (ex.: envio de e-mail pelo Resend) roda em Edge Function, com a
   chave nos secrets do Supabase.
 - Trocar a origem dos dados NÃO pode exigir mudança nos componentes das telas.
@@ -128,7 +131,7 @@ evitando trabalho desnecessário.
 - Todo plano e toda revisão de código DEVEM verificar a conformidade com estes
   princípios.
 
-**Versão**: 1.1.1 | **Ratificada**: 2026-11-11 | **Última emenda**: 2026-11-11
+**Versão**: 1.1.2 | **Ratificada**: 2026-11-11 | **Última emenda**: 2026-11-12
 
 ### Emendas
 
@@ -138,3 +141,7 @@ evitando trabalho desnecessário.
 - **1.1.1 (2026-11-11):** esclarece no princípio I que a área admin é só em português, com
   textos apenas em `messages/pt.json`. Motivo: alinhar a constituição à especificação do
   projeto, que define o admin sem i18n.
+- **1.1.2 (2026-11-12):** esclarece no princípio III que uma rota do Next que só invalida o
+  cache do site, sem ler nem gravar dados e com autorização do Supabase, não é backend
+  próprio. Motivo: o princípio VI prevê o admin invalidando o cache ao salvar, e
+  `revalidateTag` só roda no servidor do Next (spec 002, `research.md`, item 6).

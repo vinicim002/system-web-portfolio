@@ -9,6 +9,8 @@
 //   ALLOWED_ORIGINS     origens liberadas, separadas por vírgula,
 //                       ex.: "https://viniciusvilanova.com,http://localhost:3000"
 
+import { buildContactEmail } from "./email.ts";
+
 const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY") ?? "";
 const CONTACT_TO_EMAIL = Deno.env.get("CONTACT_TO_EMAIL") ?? "";
 const CONTACT_FROM_EMAIL = Deno.env.get("CONTACT_FROM_EMAIL") ?? "";
@@ -74,15 +76,6 @@ function parsePayload(value: unknown): ContactPayload | null {
   return payload;
 }
 
-function escapeHtml(text: string) {
-  return text
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#39;");
-}
-
 Deno.serve(async (request) => {
   const origin = request.headers.get("origin");
 
@@ -111,12 +104,7 @@ Deno.serve(async (request) => {
   // Campo-armadilha preenchido: finge sucesso e não envia nada
   if (payload.website) return json({ ok: true }, 200, origin);
 
-  const html = `
-    <p><strong>Nome:</strong> ${escapeHtml(payload.name)}</p>
-    <p><strong>E-mail:</strong> ${escapeHtml(payload.email)}</p>
-    <p><strong>Mensagem:</strong></p>
-    <p style="white-space:pre-wrap">${escapeHtml(payload.message)}</p>
-  `;
+  const email = buildContactEmail({ ...payload, sentAt: new Date() });
 
   const response = await fetch("https://api.resend.com/emails", {
     method: "POST",
@@ -128,9 +116,9 @@ Deno.serve(async (request) => {
       from: CONTACT_FROM_EMAIL,
       to: [CONTACT_TO_EMAIL],
       reply_to: payload.email,
-      subject: `Contato pelo portfólio: ${payload.name}`,
-      text: `Nome: ${payload.name}\nE-mail: ${payload.email}\n\n${payload.message}`,
-      html,
+      subject: email.subject,
+      text: email.text,
+      html: email.html,
     }),
   });
 

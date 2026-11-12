@@ -252,5 +252,11 @@
     "nav": "Navigation",
     "social": "Social",
     "rights": "All rights reserved."
+  },
+  "globalNotFound": {
+    "eyebrow": "Error 404",
+    "title": "Page not found",
+    "description": "This address does not exist or has moved.",
+    "home": "Go to the home page"
   }
 }

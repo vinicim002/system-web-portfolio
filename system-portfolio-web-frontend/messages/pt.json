@@ -556,5 +556,11 @@
       "recoveryTitle": "Se perder todos os aparelhos",
       "recoveryText": "No painel do Supabase, abra Authentication → Users, escolha a sua conta e remova o fator em MFA factors. No próximo login o admin pede um novo cadastro."
     }
+  },
+  "globalNotFound": {
+    "eyebrow": "Erro 404",
+    "title": "Página não encontrada",
+    "description": "O endereço que você abriu não existe ou mudou de lugar.",
+    "home": "Ir para o início"
   }
 }

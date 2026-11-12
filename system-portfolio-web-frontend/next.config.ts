@@ -18,6 +18,11 @@ const nextConfig: NextConfig = {
   // Impede o `next dev` de gerar AGENTS.md (regra do projeto: só .claude/)
   agentRules: false,
   cacheComponents: true,
+  experimental: {
+    // 404 único para endereços sem rota (src/app/global-not-found.tsx): o site tem dois
+    // layouts raiz e, sem isto, esses endereços travavam o Worker no Cloudflare
+    globalNotFound: true,
+  },
   images: {
     // Imagens enviadas pelo admin ficam no Storage do Supabase (bucket project-images)
     remotePatterns: [

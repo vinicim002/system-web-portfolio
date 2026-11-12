@@ -434,7 +434,8 @@
         "deleteCancel": "Cancelar",
         "deleted": "Projeto excluído: {title}.",
         "error": "Não foi possível concluir a ação. Confira a conexão e tente de novo.",
-        "filteredOrderHint": "Com filtros ativos, subir e descer troca de lugar com o vizinho na lista completa."
+        "filteredOrderHint": "Com filtros ativos, subir e descer troca de lugar com o vizinho na lista completa.",
+        "revalidateFailed": "Salvo. O site pode levar algumas horas para mostrar a mudança."
       }
     },
     "systems": {

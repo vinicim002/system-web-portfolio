@@ -51,7 +51,9 @@ export function DevBadge({ name, role, label, footer, avatarUrl }: DevBadgeProps
       <motion.div
         className="relative -mt-3 w-60 cursor-grab [@media(min-height:900px)]:lg:w-72 touch-pan-y overflow-hidden rounded-3xl border border-border bg-background shadow-2xl shadow-primary/15 select-none active:cursor-grabbing dark:shadow-black/50"
         onPan={(_, info) => {
-          const degrees = (Math.atan2(info.offset.x, PENDULUM_LENGTH) * 180) / Math.PI;
+          // Girando pelo topo, ângulo positivo leva a base para a esquerda: o sinal invertido faz
+          // o crachá acompanhar o lado para onde foi puxado
+          const degrees = (-Math.atan2(info.offset.x, PENDULUM_LENGTH) * 180) / Math.PI;
           angle.set(Math.max(-MAX_ANGLE, Math.min(MAX_ANGLE, degrees)));
         }}
         onPanEnd={() => angle.set(0)}

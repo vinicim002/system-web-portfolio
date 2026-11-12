@@ -165,7 +165,7 @@ cancelando), conferindo cada resultado na lista; recarregar e ver o estado inici
 
 - [X] T053 Apresentar as telas ao autor (prints e `npm run dev`) e registrar a decisão sobre cada tela, campo e ação em `specs/001-admin-telas/review.md` (fica, sai ou muda) (CS-006)
 - [X] T054 Ajustar as telas conforme `specs/001-admin-telas/review.md`, removendo campos e ações descartados, e repetir T050–T051
-- [ ] T055 Com a aprovação registrada em `specs/001-admin-telas/review.md`, listar as funções que a integração real precisa (Auth, gravação, Storage e atualização do site) e iniciar a próxima especificação com `/speckit-specify`; nenhuma integração é feita dentro da 001
+- [X] T055 Com a aprovação registrada em `specs/001-admin-telas/review.md`, listar as funções que a integração real precisa (Auth, gravação, Storage e atualização do site) e iniciar a próxima especificação com `/speckit-specify`; nenhuma integração é feita dentro da 001
 
 ---
 

@@ -152,16 +152,16 @@ fazer uma alteração que aparece no site em até 1 minuto.
 
 - [X] T044 [US5] 🔒 Com o autor: primeiro acesso no projeto real pelo `npm run dev` (cadastro do fator no app autenticador dele e, de preferência, um segundo fator), confirmando a História 1 com a conta real
 - [X] T045 [US5] Adicionar `"vars": { "ADMIN_ENABLED": "true" }` em `F/wrangler.jsonc`
-- [ ] T046 [US5] 🔒 Publicar (`npm run deploy` em `F/`) e conferir em produção: login com código, despublicar/publicar e uma edição aparecendo no site em até 1 minuto (CS-004, também no inglês), `noindex` nas telas do admin e `/admin/projetos` sem sessão levando ao login
+- [X] T046 [US5] 🔒 Publicar (`npm run deploy` em `F/`) e conferir em produção: login com código, despublicar/publicar e uma edição aparecendo no site em até 1 minuto (CS-004, também no inglês), `noindex` nas telas do admin e `/admin/projetos` sem sessão levando ao login
 
 ---
 
 ## Fase 9: Acabamento
 
-- [ ] T047 [P] Conferir que nenhum componente acessa o Supabase direto (busca por `@supabase` e `getSupabase` fora de `F/src/lib/`) e que o site público não importa nada do admin
-- [ ] T048 [P] Rodar `npx tsc --noEmit`, `npm run lint`, `npm run test` e `npm run build` em `F/` sem erros
-- [ ] T049 Seguir `specs/002-admin-integracao/quickstart.md` e o roteiro de `specs/001-admin-telas/quickstart.md` (sem regressão de layout, CS-007), com prints nos dois temas e em 390×844
-- [ ] T050 Atualizar `.claude/context/supabase.md`, `.claude/context/cloudflare.md`, `.claude/memory/progress.md` e `.claude/memory/decisions.md`
+- [X] T047 [P] Conferir que nenhum componente acessa o Supabase direto (busca por `@supabase` e `getSupabase` fora de `F/src/lib/`) e que o site público não importa nada do admin
+- [X] T048 [P] Rodar `npx tsc --noEmit`, `npm run lint`, `npm run test` e `npm run build` em `F/` sem erros
+- [X] T049 Seguir `specs/002-admin-integracao/quickstart.md` e o roteiro de `specs/001-admin-telas/quickstart.md` (sem regressão de layout, CS-007), com prints nos dois temas e em 390×844
+- [X] T050 Atualizar `.claude/context/supabase.md`, `.claude/context/cloudflare.md`, `.claude/memory/progress.md` e `.claude/memory/decisions.md`
 
 ---
 

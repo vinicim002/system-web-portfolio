@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { connection } from "next/server";
 import { Suspense } from "react";
 import { hasLocale, type Locale } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
@@ -26,8 +27,8 @@ export default async function ProjectsPage({ params }: PageProps<"/[locale]/proj
   return (
     <main>
       <Container className="flex flex-col gap-10 pt-6 lg:gap-14 lg:pt-10">
-        {/* Os projetos ficam numa fronteira de Suspense: depois que o admin salva, só esta parte é
-            gerada de novo (no Cloudflare, regenerar a página inteira travava o Worker) */}
+        {/* Os projetos ficam numa fronteira de Suspense, gerada a cada visita: depois que o admin
+            salva, só esta parte é refeita (no Cloudflare, re-pré-renderizar a página inteira travava) */}
         <Suspense fallback={<ProjectsArchiveSkeleton title={t("title")} subtitle={t("subtitle")} />}>
           <ProjectsArchiveSection locale={locale} />
         </Suspense>
@@ -39,6 +40,9 @@ export default async function ProjectsPage({ params }: PageProps<"/[locale]/proj
 }
 
 async function ProjectsArchiveSection({ locale }: { locale: Locale }) {
+  // Gerada a cada visita (os dados vêm do cache "projects"): no Cloudflare, re-pré-renderizar a
+  // página inteira depois de uma invalidação travava o Worker; completar só esta parte funciona
+  await connection();
   const t = await getTranslations("projectsPage");
   const projects = await getProjects(locale);
 

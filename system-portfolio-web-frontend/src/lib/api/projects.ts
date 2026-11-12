@@ -6,14 +6,13 @@ import { mockProjects } from "./projects.mock";
 
 // Os componentes nunca acessam o Supabase direto: sempre por aqui.
 
-// Busca os projetos publicados (cache com a tag "projects"). Sem Supabase, usa os dados locais.
-// CONTENÇÃO (2026-11-12): no Cloudflare, regenerar o início e a lista depois que o cache expira
-// trava o Worker. Até a correção definitiva, o cache não expira ("max") e a invalidação ao salvar
-// fica pausada: as mudanças do admin aparecem no site no próximo deploy.
+// Busca os projetos publicados (cache com a tag "projects", para o admin poder invalidar ao
+// salvar). Sem Supabase configurado, usa os dados locais. As seções que mostram projetos são
+// geradas a cada visita (connection()) e leem este cache: ver ProjectsArchiveSection.
 async function fetchPublishedRows(): Promise<ProjectRow[]> {
   "use cache";
   cacheTag("projects");
-  cacheLife("max");
+  cacheLife("hours");
 
   const supabase = getSupabaseClient();
   if (!supabase) {

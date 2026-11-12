@@ -4,6 +4,7 @@ import type { Locale } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import { ProjectLinks } from "@/components/sections/shared/ProjectLinks";
 import { Link } from "@/i18n/navigation";
+import { connection } from "next/server";
 import { getLatestProjects } from "@/lib/api/projects";
 import { cn } from "@/lib/utils";
 import type { ProjectSummary } from "@/types/project";
@@ -28,6 +29,8 @@ function ProjectThumb({ project }: { project: ProjectSummary }) {
 }
 
 export async function LatestProjectsCard({ locale, className }: LatestProjectsCardProps) {
+  // Gerado a cada visita (os dados vêm do cache "projects"): ver ProjectsArchiveSection
+  await connection();
   const t = await getTranslations("home.projects");
   const tProject = await getTranslations("project");
   // Três itens cabem no card; o resto fica em "Ver todos"

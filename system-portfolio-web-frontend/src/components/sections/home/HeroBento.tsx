@@ -1,4 +1,5 @@
 import type { Locale } from "next-intl";
+import { Suspense } from "react";
 import { BadgeCard } from "./BadgeCard";
 import { IntroCard } from "./IntroCard";
 import { LatestProjectsCard } from "./LatestProjectsCard";
@@ -13,10 +14,15 @@ export function HeroBento({ locale }: { locale: Locale }) {
       <IntroCard className="lg:col-start-1 lg:row-span-2 lg:row-start-1" />
       <BadgeCard className="md:row-span-2 lg:col-start-2 lg:row-span-3 lg:row-start-1" />
       <SocialCard className="lg:col-start-3 lg:row-start-1" />
-      <LatestProjectsCard
-        locale={locale}
-        className="lg:col-start-3 lg:row-span-2 lg:row-start-2"
-      />
+      {/* Os projetos ficam numa fronteira de Suspense: depois que o admin salva, só este card é
+          gerado de novo (no Cloudflare, regenerar a página inteira travava o Worker) */}
+      <Suspense
+        fallback={
+          <div className="min-h-72 animate-pulse rounded-3xl bg-card motion-reduce:animate-none lg:col-start-3 lg:row-span-2 lg:row-start-2" />
+        }
+      >
+        <LatestProjectsCard locale={locale} className="lg:col-start-3 lg:row-span-2 lg:row-start-2" />
+      </Suspense>
       <LocationCard className="md:col-span-2 lg:col-span-1 lg:col-start-1 lg:row-start-3" />
     </div>
   );

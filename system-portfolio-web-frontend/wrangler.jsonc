@@ -20,6 +20,8 @@
       "database_id": "4bc707d1-ad2f-41d7-adf3-f7c438446171"
     }
   ],
+  // O próprio Worker, para a fila do OpenNext regenerar páginas em segundo plano
+  "services": [{ "binding": "WORKER_SELF_REFERENCE", "service": "system-portfolio-web" }],
   // Otimização do next/image (Cloudflare Images; plano grátis com limite mensal)
   "images": {
     "binding": "IMAGES"

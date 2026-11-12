@@ -252,5 +252,60 @@
     "nav": "Navegação",
     "social": "Redes",
     "rights": "Todos os direitos reservados."
+  },
+  "admin": {
+    "meta": {
+      "title": "Admin · Vinicius Vila Nova",
+      "description": "Área privada para gerenciar o portfólio e acompanhar os sistemas."
+    },
+    "sampleNotice": "Dados de exemplo: nada é salvo e tudo volta ao início ao recarregar a página.",
+    "common": {
+      "save": "Salvar",
+      "cancel": "Cancelar",
+      "back": "Voltar",
+      "loading": "Carregando…",
+      "notFound": "Página não encontrada",
+      "notFoundHint": "O endereço não existe na área admin.",
+      "goHome": "Ir para o Início",
+      "example": "exemplo",
+      "comingInThisDelivery": "Esta tela entra nas próximas histórias desta entrega."
+    },
+    "login": {
+      "title": "Entrar no admin",
+      "subtitle": "Área privada do portfólio.",
+      "email": "E-mail",
+      "emailPlaceholder": "voce@exemplo.com",
+      "password": "Senha",
+      "submit": "Entrar",
+      "visualOnly": "Login só visual nesta etapa: nada é verificado nem guardado. Clique em Entrar para ver as telas."
+    },
+    "nav": {
+      "label": "Menu do admin",
+      "home": "Início",
+      "projects": "Projetos",
+      "systems": "Sistemas",
+      "viewSite": "Ver site",
+      "newTab": "(abre em nova aba)"
+    },
+    "shell": {
+      "brand": "admin",
+      "openMenu": "Abrir menu",
+      "menuTitle": "Navegação",
+      "toggleTheme": "Alternar tema claro/escuro",
+      "skipToContent": "Pular para o conteúdo",
+      "closeMenu": "Fechar menu"
+    },
+    "home": {
+      "title": "Início",
+      "subtitle": "Visão geral dos seus sistemas e atalhos para o portfólio."
+    },
+    "projects": {
+      "title": "Projetos",
+      "subtitle": "Projetos exibidos no portfólio."
+    },
+    "systems": {
+      "title": "Sistemas",
+      "subtitle": "Os sistemas que você mantém no ar."
+    }
   }
 }

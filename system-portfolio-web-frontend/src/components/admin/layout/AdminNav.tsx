@@ -3,6 +3,7 @@
 import { ExternalLink, FolderKanban, LayoutDashboard, Server } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { Suspense } from "react";
 import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
 
@@ -20,15 +21,31 @@ type AdminNavProps = {
   onNavigate?: () => void;
 };
 
-// Menu do admin: Início só na rota exata; Projetos e Sistemas incluem as subrotas (RF-003)
-export function AdminNav({ onNavigate }: AdminNavProps) {
-  const t = useTranslations("admin.nav");
+// Menu do admin: Início só na rota exata; Projetos e Sistemas incluem as subrotas (RF-003).
+// Em rotas com parâmetro o caminho só existe na requisição; o fallback mostra o mesmo menu
+// sem item marcado até o caminho chegar, sem bloquear o pré-render.
+export function AdminNav(props: AdminNavProps) {
+  return (
+    <Suspense fallback={<NavList {...props} pathname={null} />}>
+      <CurrentNav {...props} />
+    </Suspense>
+  );
+}
+
+function CurrentNav(props: AdminNavProps) {
   const pathname = usePathname();
+  return <NavList {...props} pathname={pathname} />;
+}
+
+function NavList({ onNavigate, pathname }: AdminNavProps & { pathname: string | null }) {
+  const t = useTranslations("admin.nav");
 
   return (
     <nav aria-label={t("label")} className="flex flex-col gap-1">
       {items.map(({ href, key, icon: Icon, exact }) => {
-        const isActive = exact ? pathname === href : pathname === href || pathname.startsWith(`${href}/`);
+        const isActive =
+          pathname !== null &&
+          (exact ? pathname === href : pathname === href || pathname.startsWith(`${href}/`));
         return (
           <Link
             key={href}

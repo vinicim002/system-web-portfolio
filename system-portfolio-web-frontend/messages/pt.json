@@ -297,7 +297,11 @@
     },
     "home": {
       "title": "Início",
-      "subtitle": "Visão geral dos seus sistemas e atalhos para o portfólio."
+      "subtitle": "Visão geral dos seus sistemas e atalhos para o portfólio.",
+      "systemsTitle": "Seus sistemas",
+      "shortcutsTitle": "Portfólio",
+      "viewProjects": "Ver projetos",
+      "newProject": "Novo projeto"
     },
     "projects": {
       "title": "Projetos",
@@ -305,7 +309,32 @@
     },
     "systems": {
       "title": "Sistemas",
-      "subtitle": "Os sistemas que você mantém no ar."
+      "subtitle": "Os sistemas que você mantém, num só lugar.",
+      "gridLabel": "Sistemas",
+      "state": {
+        "live": "No ar",
+        "soon": "Em breve"
+      },
+      "status": {
+        "up": "Funcionando",
+        "degraded": "Instável",
+        "down": "Fora do ar"
+      },
+      "uptime": "Disponibilidade",
+      "visits": "Visitas",
+      "threats": "Ameaças bloqueadas",
+      "checkedAt": "Últimos 7 dias · {date}",
+      "sampleTag": "exemplo",
+      "sampleHint": "Números de exemplo: as fontes reais entram na especificação 002.",
+      "soonHint": "Sistema quase pronto. O painel aparece quando ele entrar no ar.",
+      "openPanel": "Abrir painel de {name}",
+      "visitSite": "Abrir o site",
+      "underConstruction": "Painel em construção",
+      "underConstructionHint": "Aqui vão ficar saúde, segurança e analytics só deste sistema (especificação 002).",
+      "backToSystems": "Voltar para Sistemas",
+      "notFound": "Sistema não encontrado",
+      "notFoundHint": "Este sistema não existe ou ainda não tem painel.",
+      "loadError": "Não foi possível carregar os sistemas."
     }
   }
 }

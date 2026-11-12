@@ -83,12 +83,12 @@ o tema; abrir `/admin/projetos` direto pela barra de endereço sem passar pelo l
 **Teste independente**: no Início, ver os 4 cards; abrir RookHub, RookMTR e Fazendo Comuns; conferir
 que Zona Sul Urgente aparece "em breve" e não abre painel.
 
-- [ ] T025 [P] [US2] Criar `F/src/components/admin/systems/SystemCard.tsx`: ícone (inicial do nome sobre a cor da marca), nome, estado; para `live`, resumo de `sample` (status, disponibilidade, visitas e ameaças bloqueadas em 7 dias) com a marca "exemplo" e link para `/admin/sistemas/[slug]`; para `soon`, selo "em breve" sem link (RF-007)
-- [ ] T026 [US2] Criar `F/src/components/admin/systems/SystemsGrid.tsx` usando `useAdminSystems`, com estado de carregamento
-- [ ] T027 [US2] Completar `F/src/app/admin/(painel)/page.tsx`: `SystemsGrid` e atalhos "Ver projetos" (`/admin/projetos`) e "Novo projeto" (`/admin/projetos/novo`) (RF-006)
-- [ ] T028 [P] [US2] Criar `F/src/app/admin/(painel)/sistemas/page.tsx` com o `SystemsGrid`, sem os atalhos de projetos
-- [ ] T029 [US2] Criar `F/src/components/admin/systems/SystemPlaceholder.tsx` (lê `slug` com `useParams`, busca com `useAdminSystem`; nome, ícone, link externo e aviso "painel em construção"; `slug` inexistente ou `soon` → `NotFoundState` com atalho para `/admin/sistemas`) e `F/src/app/admin/(painel)/sistemas/[slug]/page.tsx` que o renderiza dentro de `<Suspense>` (RF-008, RF-024)
-- [ ] T030 [US2] Adicionar a `F/messages/pt.json` as chaves `admin.home.*` e `admin.systems.*`
+- [X] T025 [P] [US2] Criar `F/src/components/admin/systems/SystemCard.tsx`: ícone (inicial do nome sobre a cor da marca), nome, estado; para `live`, resumo de `sample` (status, disponibilidade, visitas e ameaças bloqueadas em 7 dias) com a marca "exemplo" e link para `/admin/sistemas/[slug]`; para `soon`, selo "em breve" sem link (RF-007)
+- [X] T026 [US2] Criar `F/src/components/admin/systems/SystemsGrid.tsx` usando `useAdminSystems`, com estado de carregamento
+- [X] T027 [US2] Completar `F/src/app/admin/(painel)/page.tsx`: `SystemsGrid` e atalhos "Ver projetos" (`/admin/projetos`) e "Novo projeto" (`/admin/projetos/novo`) (RF-006)
+- [X] T028 [P] [US2] Criar `F/src/app/admin/(painel)/sistemas/page.tsx` com o `SystemsGrid`, sem os atalhos de projetos
+- [X] T029 [US2] Criar `F/src/components/admin/systems/SystemPlaceholder.tsx` (lê `slug` com `useParams`, busca com `useAdminSystem`; nome, ícone, link externo e aviso "painel em construção"; `slug` inexistente ou `soon` → `NotFoundState` com atalho para `/admin/sistemas`) e `F/src/app/admin/(painel)/sistemas/[slug]/page.tsx` que o renderiza dentro de `<Suspense>` (RF-008, RF-024)
+- [X] T030 [US2] Adicionar a `F/messages/pt.json` as chaves `admin.home.*` e `admin.systems.*`
 
 **Ponto de controle**: histórias 1 e 2 funcionam sozinhas. Conferir: tsc, lint e build sem erros; a tela nos temas claro e escuro e em 390×844 (fluxo de trabalho da constituição).
 

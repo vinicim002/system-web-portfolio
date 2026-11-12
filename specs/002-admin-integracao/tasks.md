@@ -137,9 +137,9 @@ no Storage local não sobra nada de `projects/<id>/`.
 
 **Objetivo**: levar banco e Worker para produção antes de abrir o admin.
 
-- [ ] T041 🔒 Conferir com o autor que o MFA TOTP está ligado no projeto real (Authentication → Multi-Factor) e cadastrar `https://viniciusvilanova.com` em Site URL e Redirect URLs
-- [ ] T042 🔒 Aplicar a migration no projeto real (`npx supabase db push --remote` em `B/..`) e rodar `B/tests/rls_mfa.sql` contra ele num bloco com `rollback` no final
-- [ ] T043 🔒 Publicar o Worker com o tag cache (`npm run deploy` em `F/`) mantendo `/admin` escondido, e conferir `POST https://viniciusvilanova.com/api/revalidate` sem token → 401
+- [X] T041 🔒 Conferir com o autor que o MFA TOTP está ligado no projeto real (Authentication → Multi-Factor) e cadastrar `https://viniciusvilanova.com` em Site URL e Redirect URLs
+- [X] T042 🔒 Aplicar a migration no projeto real (`npx supabase db push --remote` em `B/..`) e rodar `B/tests/rls_mfa.sql` contra ele num bloco com `rollback` no final
+- [X] T043 🔒 Publicar o Worker com o tag cache (`npm run deploy` em `F/`) mantendo `/admin` escondido, e conferir `POST https://viniciusvilanova.com/api/revalidate` sem token → 401
 
 ---
 

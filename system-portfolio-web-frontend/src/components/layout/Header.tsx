@@ -1,4 +1,4 @@
-import { CodeXml } from "lucide-react";
+import { BrandMark } from "@/components/icons/BrandMark";
 import { siteConfig } from "@/config/site";
 import { Link } from "@/i18n/navigation";
 import { Container } from "./Container";
@@ -21,7 +21,7 @@ export function Header() {
           className="pointer-events-auto flex items-center gap-3 rounded-2xl border border-border bg-card/85 p-1.5 pr-4 shadow-lg shadow-black/5 backdrop-blur-md transition-colors hover:border-secondary/50"
         >
           <span className="flex size-11 items-center justify-center rounded-xl bg-accent-text text-white dark:text-primary">
-            <CodeXml className="size-5" aria-hidden />
+            <BrandMark className="size-5" />
           </span>
           <span className="text-sm font-bold tracking-tight">
             {siteConfig.name.toLowerCase()}

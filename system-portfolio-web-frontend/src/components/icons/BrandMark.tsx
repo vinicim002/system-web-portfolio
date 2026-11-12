@@ -1,0 +1,9 @@
+// Marca "V" do autor (mesmo desenho de public/images/brand/logo-v.svg), na cor do texto
+export function BrandMark({ className }: { className?: string }) {
+  return (
+    <svg viewBox="56 40 188 222" fill="currentColor" className={className} aria-hidden focusable="false">
+      <path d="M70 46 C62 120 92 168 150 256 C150 206 140 178 116 150 C92 122 76 96 70 46 Z" />
+      <path d="M230 46 C238 120 208 168 150 256 C150 206 160 178 184 150 C208 122 224 96 230 46 Z" />
+    </svg>
+  );
+}

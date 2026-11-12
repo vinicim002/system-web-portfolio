@@ -59,7 +59,7 @@
   --primary-foreground: #ffffff;
   --secondary-foreground: #ffffff;
   --surface: color-mix(in oklab, var(--secondary) 8%, var(--card));
-  --destructive: #d92d3a;
+  --destructive: #b8222d; /* AA (≥ 4,5:1) também sobre o card e no botão de excluir */
   --radius: 0.75rem;
 }
 

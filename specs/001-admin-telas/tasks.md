@@ -151,11 +151,11 @@ cancelando), conferindo cada resultado na lista; recarregar e ver o estado inici
 
 **Objetivo**: qualidade transversal antes de mostrar ao autor.
 
-- [ ] T048 [P] Conferir acessibilidade e responsividade do admin: foco visível em todos os controles, rótulos em campos e botões de ícone, `alt` nas pré-visualizações de imagem, contraste nos dois temas e nenhuma rolagem lateral em 390×844 (CS-005)
-- [ ] T049 [P] Conferir que o site público não importa nada de `F/src/components/admin/`, `F/src/lib/api/admin/` nem `F/src/hooks/admin/` (busca por imports) e que todas as páginas do admin saem com `noindex` (RF-025)
-- [ ] T050 Rodar `npx tsc --noEmit`, `npm run lint`, `npm run test` e `npm run build` em `F/` sem erros
-- [ ] T051 Seguir o roteiro de `specs/001-admin-telas/quickstart.md` e tirar prints de cada tela nos temas claro e escuro, em 1440×900 e 390×844
-- [ ] T052 Atualizar `.claude/memory/progress.md` e `.claude/memory/decisions.md` com o estado da entrega (incluindo a convenção de arquivos de hooks em kebab-case em `F/src/hooks/`)
+- [X] T048 [P] Conferir acessibilidade e responsividade do admin: foco visível em todos os controles, rótulos em campos e botões de ícone, `alt` nas pré-visualizações de imagem, contraste nos dois temas e nenhuma rolagem lateral em 390×844 (CS-005)
+- [X] T049 [P] Conferir que o site público não importa nada de `F/src/components/admin/`, `F/src/lib/api/admin/` nem `F/src/hooks/admin/` (busca por imports) e que todas as páginas do admin saem com `noindex` (RF-025)
+- [X] T050 Rodar `npx tsc --noEmit`, `npm run lint`, `npm run test` e `npm run build` em `F/` sem erros
+- [X] T051 Seguir o roteiro de `specs/001-admin-telas/quickstart.md` e tirar prints de cada tela nos temas claro e escuro, em 1440×900 e 390×844
+- [X] T052 Atualizar `.claude/memory/progress.md` e `.claude/memory/decisions.md` com o estado da entrega (incluindo a convenção de arquivos de hooks em kebab-case em `F/src/hooks/`)
 
 ---
 

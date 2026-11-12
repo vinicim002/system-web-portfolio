@@ -1,12 +1,14 @@
 "use client";
 
 import { useCallback, useEffect, useRef } from "react";
+import { isAcceptedImageType } from "@/lib/api/admin/storage-paths";
+import { forgetImageName, imageNameOf, rememberImageName } from "@/lib/preview-image-names";
 import { MAX_IMAGE_BYTES, type PreviewImage } from "@/types/admin";
 
-export type ImageRejection = { name: string; reason: "notImage" | "tooLarge" };
+export type ImageRejection = { name: string; reason: "notImage" | "unsupportedType" | "tooLarge" };
 
-// Nome dos arquivos escolhidos nesta sessão, para reabrir um projeto salvo com o nome certo
-const fileNames = new Map<string, string>();
+// Formatos que o Storage aceita (o mesmo filtro vai no "accept" dos campos de arquivo)
+export const IMAGE_ACCEPT = "image/webp,image/png,image/jpeg,image/avif";
 
 // Imagens escolhidas no formulário (envio simulado). As URLs blob: criadas aqui são
 // liberadas ao remover a imagem ou ao sair do formulário, exceto as que foram salvas.
@@ -21,7 +23,7 @@ export function usePreviewImages() {
       for (const url of registry.keys()) {
         if (keep.has(url)) continue;
         URL.revokeObjectURL(url);
-        fileNames.delete(url);
+        forgetImageName(url);
       }
       registry.clear();
     };
@@ -34,12 +36,14 @@ export function usePreviewImages() {
     for (const file of files) {
       if (!file.type.startsWith("image/")) {
         rejected.push({ name: file.name, reason: "notImage" });
+      } else if (!isAcceptedImageType(file.type)) {
+        rejected.push({ name: file.name, reason: "unsupportedType" });
       } else if (file.size > MAX_IMAGE_BYTES) {
         rejected.push({ name: file.name, reason: "tooLarge" });
       } else {
         const image = { url: URL.createObjectURL(file), name: file.name, size: file.size, kind };
         created.current.set(image.url, image);
-        fileNames.set(image.url, file.name);
+        rememberImageName(image.url, file.name);
         accepted.push(image);
       }
     }
@@ -50,7 +54,7 @@ export function usePreviewImages() {
     if (created.current.has(url) && !kept.current.has(url)) {
       URL.revokeObjectURL(url);
       created.current.delete(url);
-      fileNames.delete(url);
+      forgetImageName(url);
     }
   }, []);
 
@@ -61,7 +65,7 @@ export function usePreviewImages() {
 
   // Nome para exibir: o do arquivo escolhido ou o fim do caminho já existente
   const nameOf = useCallback((url: string) => {
-    return fileNames.get(url) ?? decodeURIComponent(url.split("/").pop() ?? url);
+    return imageNameOf(url);
   }, []);
 
   return { add, release, keep, nameOf };

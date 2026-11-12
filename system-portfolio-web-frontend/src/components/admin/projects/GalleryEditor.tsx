@@ -4,7 +4,7 @@ import { ChevronLeft, ChevronRight, ImagePlus, X } from "lucide-react";
 import { useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
-import type { ImageRejection, usePreviewImages } from "@/hooks/admin/use-preview-images";
+import { IMAGE_ACCEPT, type ImageRejection, type usePreviewImages } from "@/hooks/admin/use-preview-images";
 import { MAX_GALLERY } from "@/lib/validations/project";
 import { ImageRejections } from "./ImageRejections";
 
@@ -109,7 +109,7 @@ export function GalleryEditor({ value, onChange, images, labelledBy }: GalleryEd
         <input
           ref={inputRef}
           type="file"
-          accept="image/*"
+          accept={IMAGE_ACCEPT}
           multiple
           className="sr-only"
           aria-labelledby={labelledBy}

@@ -2,8 +2,11 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 import { getAdminSupabase } from "@/lib/supabase/admin-client";
 import type { ProjectRow } from "@/types/project";
 import { AdminServiceError } from "./errors";
-import { draftToColumns, isUuid, matchesQuery, placeAt, sameOrder, swapOrder, toAdminError } from "./project-rows";
+import { imageNameOf } from "@/lib/preview-image-names";
+import { draftToColumns, isUuid, matchesQuery, placeAt, sameOrder, swapOrder, toAdminError, type ProjectColumns } from "./project-rows";
 import type { AdminProjectsService } from "./projects";
+import { removeObjects, removeProjectFolder, uploadPreview, type UploadSession } from "./storage";
+import { imageUrlsOf, orphanPaths } from "./storage-paths";
 
 // Implementação real do AdminProjectsService (spec 002). O RLS só deixa o admin com segundo
 // fator (aal2) ver rascunhos e gravar; as telas não mudam em relação à implementação local.
@@ -46,6 +49,26 @@ async function placeProject(supabase: SupabaseClient, id: string, position: numb
   if (!sameOrder(current, next)) await saveOrder(supabase, next);
 }
 
+// Troca as imagens escolhidas no formulário (blob:) pelas URLs públicas enviadas ao Storage
+async function resolveImages(
+  supabase: SupabaseClient,
+  projectId: string,
+  columns: Omit<ProjectColumns, "sort_order">,
+  session: UploadSession,
+) {
+  const resolve = (url: string) =>
+    url.startsWith("blob:") ? uploadPreview(supabase, projectId, url, imageNameOf(url), session) : Promise.resolve(url);
+  const cover_url = columns.cover_url ? await resolve(columns.cover_url) : null;
+  const gallery_urls: string[] = [];
+  for (const url of columns.gallery_urls) gallery_urls.push(await resolve(url));
+  return { ...columns, cover_url, gallery_urls };
+}
+
+// Se o salvamento falhar, os arquivos enviados agora não ficam sobrando (RF-013)
+async function rollbackUploads(supabase: SupabaseClient, session: UploadSession) {
+  await removeObjects(supabase, session.uploaded);
+}
+
 async function patch(id: string, changes: Partial<ProjectRow>): Promise<ProjectRow> {
   const supabase = client();
   if (!isUuid(id)) throw new AdminServiceError("not_found");
@@ -81,12 +104,19 @@ export const supabaseAdminProjects: AdminProjectsService = {
   async create(draft) {
     const supabase = client();
     const id = crypto.randomUUID();
-    const { sort_order: position, ...columns } = draftToColumns(draft);
-    const total = (await orderedIds(supabase)).length;
+    const { sort_order: position, ...draftColumns } = draftToColumns(draft);
+    const session: UploadSession = { uploaded: [] };
 
-    // Entra no fim e depois vai para a posição pedida (a ordem nunca fica com número repetido)
-    const { error } = await supabase.from("projects").insert({ ...columns, id, sort_order: total });
-    if (error) throw toAdminError(error);
+    try {
+      const columns = await resolveImages(supabase, id, draftColumns, session);
+      const total = (await orderedIds(supabase)).length;
+      // Entra no fim e depois vai para a posição pedida (a ordem nunca fica com número repetido)
+      const { error } = await supabase.from("projects").insert({ ...columns, id, sort_order: total });
+      if (error) throw toAdminError(error);
+    } catch (error) {
+      await rollbackUploads(supabase, session);
+      throw error;
+    }
     await placeProject(supabase, id, position);
     return mustFetch(supabase, id);
   },
@@ -94,11 +124,22 @@ export const supabaseAdminProjects: AdminProjectsService = {
   async update(id, draft) {
     const supabase = client();
     const current = await mustFetch(supabase, id);
-    const { sort_order: position, ...columns } = draftToColumns(draft);
+    const { sort_order: position, ...draftColumns } = draftToColumns(draft);
+    const session: UploadSession = { uploaded: [] };
 
-    const { data, error } = await supabase.from("projects").update(columns).eq("id", id).select("id").maybeSingle();
-    if (error) throw toAdminError(error);
-    if (!data) throw new AdminServiceError("not_found");
+    let columns: Omit<ProjectColumns, "sort_order">;
+    try {
+      columns = await resolveImages(supabase, id, draftColumns, session);
+      const { data, error } = await supabase.from("projects").update(columns).eq("id", id).select("id").maybeSingle();
+      if (error) throw toAdminError(error);
+      if (!data) throw new AdminServiceError("not_found");
+    } catch (error) {
+      await rollbackUploads(supabase, session);
+      throw error;
+    }
+
+    // Só depois de gravar: apaga do Storage as imagens que deixaram de ser usadas (RF-014)
+    await removeObjects(supabase, orphanPaths(imageUrlsOf(current), imageUrlsOf(columns)));
     if (position !== current.sort_order) await placeProject(supabase, id, position);
     return mustFetch(supabase, id);
   },
@@ -109,6 +150,8 @@ export const supabaseAdminProjects: AdminProjectsService = {
     const { data, error } = await supabase.from("projects").delete().eq("id", id).select("id");
     if (error) throw toAdminError(error);
     if (!data || data.length === 0) throw new AdminServiceError("not_found");
+    // Imagens enviadas para este projeto saem junto (as antigas /images/... ficam)
+    await removeProjectFolder(supabase, id);
     // Renumera os que sobraram de 0 em diante
     const remaining = await orderedIds(supabase);
     if (remaining.length > 0) await saveOrder(supabase, remaining);

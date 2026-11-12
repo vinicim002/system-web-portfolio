@@ -410,7 +410,8 @@
           "published": "publicado",
           "draft": "rascunho"
         },
-        "characters": "{count}/{max}"
+        "characters": "{count}/{max}",
+        "uploadFailed": "Não foi possível enviar a imagem {name}. Nada foi salvo; tente de novo."
       },
       "actions": {
         "publish": "Publicar {title}",
@@ -487,13 +488,14 @@
       "moveDown": "Mover imagem {position} para a direita",
       "coverEmpty": "Nenhuma capa escolhida.",
       "galleryEmpty": "Nenhuma imagem na galeria.",
-      "rules": "Imagens até 5 MB.",
+      "rules": "Formatos WEBP, PNG, JPG ou AVIF, até 5 MB.",
       "galleryCount": "{count} de {max} imagens",
-      "simulated": "Envio simulado: a imagem fica só neste navegador e não é enviada.",
+      "simulated": "As imagens são enviadas quando você salvar o projeto.",
       "notImage": "{name} não é uma imagem.",
       "tooLarge": "{name} passa de 5 MB.",
       "galleryFull": "A galeria aceita até {max} imagens; {count} ficaram de fora.",
-      "position": "Imagem {position}"
+      "position": "Imagem {position}",
+      "unsupportedType": "{name} não é WEBP, PNG, JPG ou AVIF."
     },
     "validation": {
       "required": "Campo obrigatório.",

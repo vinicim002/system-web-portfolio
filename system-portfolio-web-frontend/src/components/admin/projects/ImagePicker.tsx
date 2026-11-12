@@ -4,7 +4,7 @@ import { ImagePlus, Trash2 } from "lucide-react";
 import { useId, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
-import type { ImageRejection, usePreviewImages } from "@/hooks/admin/use-preview-images";
+import { IMAGE_ACCEPT, type ImageRejection, type usePreviewImages } from "@/hooks/admin/use-preview-images";
 import { ImageRejections } from "./ImageRejections";
 
 type ImagePickerProps = {
@@ -55,7 +55,7 @@ export function ImagePicker({ value, onChange, images, labelledBy }: ImagePicker
             ref={inputRef}
             id={inputId}
             type="file"
-            accept="image/*"
+            accept={IMAGE_ACCEPT}
             className="sr-only"
             aria-labelledby={labelledBy}
             onChange={(event) => handleFiles(event.target.files)}

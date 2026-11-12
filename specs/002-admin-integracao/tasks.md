@@ -104,12 +104,12 @@ com sessão `aal1` tentar gravar pelo console e ver recusa.
 **Teste independente**: criar com capa + 2 imagens; trocar a capa; remover 1 imagem; excluir o projeto;
 no Storage local não sobra nada de `projects/<id>/`.
 
-- [ ] T029 [P] [US3] Criar as funções puras em `F/src/lib/api/admin/storage-paths.ts`: caminho `projects/<projectId>/<uuid>.<ext>` (extensão pelo tipo da imagem), saber se uma URL é do bucket (prefixo `/storage/v1/object/public/project-images/`), e listar órfãs (URLs do bucket que existiam antes e não existem depois; caminhos `/images/...` nunca entram)
-- [ ] T030 [P] [US3] Testes Vitest em `F/src/lib/api/admin/storage-paths.test.ts` (inclui: `/images/...` nunca é órfã; ordem e duplicatas não geram órfã)
-- [ ] T031 [US3] Criar `F/src/lib/api/admin/storage.ts`: enviar cada URL `blob:` (`fetch` → `Blob`; aceitar só `image/webp`, `image/png`, `image/jpeg` e `image/avif` (os tipos permitidos no bucket) e até "5 MB (5.242.880 bytes)") e devolver a URL pública; apagar uma lista de caminhos; apagar a pasta `projects/<id>/`
-- [ ] T032 [US3] Usar `storage.ts` em `create`/`update`/`remove` de `F/src/lib/api/admin/projects.supabase.ts`: enviar antes de gravar; se algum envio ou a gravação falhar, apagar os envios novos e lançar erro (RF-013), tratando sessão expirada (401/JWT vencido) como "entre de novo"; depois de gravar, apagar as órfãs; ao excluir, apagar a pasta
-- [ ] T033 [US3] Restringir a escolha às 4 extensões aceitas pelo bucket (`accept` e mensagem de recusa em `F/src/hooks/admin/use-preview-images.ts`, com texto em `F/messages/pt.json`) e manter as URLs `blob:` válidas até o salvamento terminar e liberar as que foram trocadas pelas URLs públicas, ajustando `F/src/hooks/admin/use-preview-images.ts` sem mudar `ImagePicker` e `GalleryEditor`
-- [ ] T034 [US3] Conferir a História 3 no `npm run dev` com o Supabase local (incluindo projeto antigo com `/images/...` editado sem perder imagens)
+- [X] T029 [P] [US3] Criar as funções puras em `F/src/lib/api/admin/storage-paths.ts`: caminho `projects/<projectId>/<uuid>.<ext>` (extensão pelo tipo da imagem), saber se uma URL é do bucket (prefixo `/storage/v1/object/public/project-images/`), e listar órfãs (URLs do bucket que existiam antes e não existem depois; caminhos `/images/...` nunca entram)
+- [X] T030 [P] [US3] Testes Vitest em `F/src/lib/api/admin/storage-paths.test.ts` (inclui: `/images/...` nunca é órfã; ordem e duplicatas não geram órfã)
+- [X] T031 [US3] Criar `F/src/lib/api/admin/storage.ts`: enviar cada URL `blob:` (`fetch` → `Blob`; aceitar só `image/webp`, `image/png`, `image/jpeg` e `image/avif` (os tipos permitidos no bucket) e até "5 MB (5.242.880 bytes)") e devolver a URL pública; apagar uma lista de caminhos; apagar a pasta `projects/<id>/`
+- [X] T032 [US3] Usar `storage.ts` em `create`/`update`/`remove` de `F/src/lib/api/admin/projects.supabase.ts`: enviar antes de gravar; se algum envio ou a gravação falhar, apagar os envios novos e lançar erro (RF-013), tratando sessão expirada (401/JWT vencido) como "entre de novo"; depois de gravar, apagar as órfãs; ao excluir, apagar a pasta
+- [X] T033 [US3] Restringir a escolha às 4 extensões aceitas pelo bucket (`accept` e mensagem de recusa em `F/src/hooks/admin/use-preview-images.ts`, com texto em `F/messages/pt.json`) e manter as URLs `blob:` válidas até o salvamento terminar e liberar as que foram trocadas pelas URLs públicas, ajustando `F/src/hooks/admin/use-preview-images.ts` sem mudar `ImagePicker` e `GalleryEditor`
+- [X] T034 [US3] Conferir a História 3 no `npm run dev` com o Supabase local (incluindo projeto antigo com `/images/...` editado sem perder imagens)
 
 **Ponto de controle**: Histórias 1 a 3 funcionando sozinhas.
 

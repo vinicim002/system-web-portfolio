@@ -12,6 +12,14 @@
   },
   // Cache do Next (open-next.config.ts); namespace "system-portfolio-web-cache"
   "kv_namespaces": [{ "binding": "NEXT_INC_CACHE_KV", "id": "0d3aa9c37f8b4586b43bae65763474c5" }],
+  // Marcas de invalidação do cache (revalidateTag ao salvar no admin); banco "system-portfolio-web-tag-cache"
+  "d1_databases": [
+    {
+      "binding": "NEXT_TAG_CACHE_D1",
+      "database_name": "system-portfolio-web-tag-cache",
+      "database_id": "4bc707d1-ad2f-41d7-adf3-f7c438446171"
+    }
+  ],
   // Otimização do next/image (Cloudflare Images; plano grátis com limite mensal)
   "images": {
     "binding": "IMAGES"

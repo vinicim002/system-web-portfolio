@@ -125,9 +125,9 @@ no Storage local não sobra nada de `projects/<id>/`.
 - [X] T035 [US4] Criar `F/src/app/api/revalidate/route.ts` conforme `contracts/revalidacao.md`: só `POST`; `Origin` em `https://viniciusvilanova.com` ou `http://localhost:3000`; `Authorization: Bearer`; cliente Supabase com o token do usuário e `rpc("is_admin")`; verdadeiro → `revalidateTag("projects", { expire: 0 })` e `200 { ok: true }`; senão `401`/`403`/`405`; nenhum dado do portfólio lido ou gravado
 - [X] T036 [P] [US4] Criar `F/src/lib/api/admin/revalidate.ts` com `revalidatePublicSite()` (envia o token da sessão de `admin-client.ts`; falha vira aviso, nunca desfaz a gravação)
 - [X] T037 [US4] Chamar `revalidatePublicSite()` no `onSuccess` de `useSaveProject`, `useDeleteProject`, `useTogglePublished`, `useToggleFeatured` e `useMoveProject` em `F/src/hooks/admin/use-admin-projects.ts`, com toast de aviso se falhar
-- [ ] T038 [US4] Somar o tag cache D1 em `F/open-next.config.ts` (`tagCache: d1NextTagCache`) e o binding `NEXT_TAG_CACHE_D1` em `F/wrangler.jsonc` (banco criado na T039)
-- [ ] T039 [US4] 🔒 Criar o banco D1 na conta do autor (`npx wrangler d1 create system-portfolio-web-tag-cache`) e fixar o `database_id` em `F/wrangler.jsonc`
-- [ ] T040 [US4] Conferir a História 4 no `npm run dev` com o Supabase local (despublicar some da home e da lista em até 1 minuto; `POST /api/revalidate` sem token 401, com `aal1` 403, com `aal2` 200) e, no preview do Cloudflare (`npx opennextjs-cloudflare build && npx opennextjs-cloudflare preview`), só 401/403 e o tag cache D1 local criado — o preview não alcança o Supabase local (`global_fetch_strictly_public` bloqueia IP privado) e o teste completo fica para T046
+- [X] T038 [US4] Somar o tag cache D1 em `F/open-next.config.ts` (`tagCache: d1NextTagCache`) e o binding `NEXT_TAG_CACHE_D1` em `F/wrangler.jsonc` (banco criado na T039)
+- [X] T039 [US4] 🔒 Criar o banco D1 na conta do autor (`npx wrangler d1 create system-portfolio-web-tag-cache`) e fixar o `database_id` em `F/wrangler.jsonc`
+- [X] T040 [US4] Conferir a História 4 no `npm run dev` com o Supabase local (despublicar some da home e da lista em até 1 minuto; `POST /api/revalidate` sem token 401, com `aal1` 403, com `aal2` 200) e, no preview do Cloudflare (`npx opennextjs-cloudflare build && npx opennextjs-cloudflare preview`), só 401/403 e o tag cache D1 local criado — o preview não alcança o Supabase local (`global_fetch_strictly_public` bloqueia IP privado) e o teste completo fica para T046
 
 **Ponto de controle**: Histórias 1 a 4 funcionando sozinhas no ambiente local.
 
